@@ -15,15 +15,75 @@
         max-width: 2000px;
         margin: auto;
     }
-</style>
-<body style= "background-color: rgba(152, 107, 70, 0.8);">
-    <script>
-        window.onload = function() {
-        var elements = document.querySelectorAll( '.gallery-demo-image' );
-        Intense( elements );
+
+    .image {
+    cursor: pointer;
+    transition: 0.3s;
+    opacity: 1;
+    }
+
+    .image:hover {opacity: 0.9;}
+
+    #image-viewer {
+        display: none;
+        z-index: 999;
+    }
+
+    #image-viewer div {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.7);
+        overflow: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #image-viewer div img {
+        display: block;
+        max-height: 70%;
+        max-width: 70%;
+        animation: showImage 0.5s;
+        opacity: 1;
+    }
+
+    @keyframes  showImage {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+    }
+
+    #close {
+        position: absolute;
+        top: 100px;
+        right: 35px;
+        color: white;
+        font-size: 50px;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    #close:hover, #close:focus {
+        opacity: 0.8;
+    }
+
+    @media  screen and (max-width: 700px) {
+        .viewer {
+            width: 100%;
         }
-    </script>
-    <script src="../gallery-images.js"></script>
+    }
+</style>
+
+
+<body style= "background-color: rgba(152, 107, 70, 0.8);">
+    
+    <!--<script src="../gallery-images.js"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
 </body>
@@ -100,51 +160,70 @@
     <h4 class="py-3" style="text-align: center; color: black; font-weight: bolder; font-size: 28px; font-family: Bubble-Love;">
         FRESHERS' NIGHT 2023
     </h4>
-    <section class="demos">
+    <div class="images demos">
         <!-- Using divs for the demo, for formatting... you can use images if you want!  -->
-        <img class="gallery-demo-image" src="../assets/gallery images/freshers 01.JPG" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/freshers 02.JPG" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/freshers 03.JPG" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/freshers 05.JPG" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/freshers 06.JPG" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/freshers 07.JPG" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/freshers 09.JPG" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/freshers 10.JPG" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/freshers 11.JPG" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/freshers 12.JPG" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/freshers 13.JPG" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/freshers 14.JPG" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/freshers 16.JPG" alt="">
-    </section>
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_freshers 1.JPG" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_freshers 2.JPG" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_freshers 3.JPG" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_freshers 5.JPG" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_freshers 6.JPG" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_freshers 7.JPG" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_freshers 9.JPG" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_freshers 10.JPG" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_freshers 11.JPG" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_freshers 12.JPG" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_freshers 13.JPG" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_freshers 14.JPG" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_freshers 16.JPG" alt="">
+    </div>
     <br>
     <a style="font-family: 'Courier New', Courier, monospace; font-weight: bold; color: aqua; text-align: center; text-decoration: none; font-size: 24px;" href="https://iitk-my.sharepoint.com/personal/ayushgupta20_iitk_ac_in/_layouts/15/onedrive.aspx?ga=1&id=%2Fpersonal%2Fayushgupta20%5Fiitk%5Fac%5Fin%2FDocuments%2FEarth%20Science%20Society%2FFreshers%5FNight%5F23%5FESS" target="_blank">Full Album>></a>
     <h4 class="py-3" style="text-align: center; color: black; font-weight: bolder; font-size: 45px; font-family: Dosis-ExtraBold;">
         TEACHERS' DAY
     </h4>
-    <section class="demos">
+    <section class="demos images">
         <!-- Using divs for the demo, for formatting... you can use images if you want!  -->
-        <img class="gallery-demo-image" src="../assets/gallery images/teachers 01.jpg" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/teachers 02.jpg" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/teachers 03.jpg" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/teachers 04.jpg" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/teachers 05.jpg" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/teachers 06.jpg" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/teachers 08.jpg" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/teachers 09.jpg" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/teachers 10.jpg" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/teachers 12.jpg" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/teachers 13.jpg" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/teachers 14.jpg" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/teachers 15.jpg" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/teachers 16.jpg" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/teachers 17.jpg" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/teachers 18.jpg" alt="">
-        <img class="gallery-demo-image" src="../assets/gallery images/teachers 19.jpg" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers 1.jpg" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers 2.jpg" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers 3.jpg" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers 4.jpg" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers 5.jpg" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers 6.jpg" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers 8.jpg" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers 9.jpg" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers 10.jpg" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers 12.jpg" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers 13.jpg" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers 14.jpg" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers 15.jpg" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers 16.jpg" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers 17.jpg" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers 18.jpg" alt="">
+        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers 19.jpg" alt="">
     </section>
     <br>
     <a style="font-family: 'Courier New', Courier, monospace; font-weight: bold; color: aqua; text-align: center; text-decoration: none; font-size: 24px;" href="https://photos.google.com/share/AF1QipPOVTvmjjXxfAyOCjnUMRFi-XExpCkNBVFkQQ2MZuQPPEb47IxYnZXVfJW1zsS1pg?key=b0ExZXJLd1VRRjU5RDRNVTA2Z1kxRFNvVUdUUlBR" target="_blank">Full Album>></a>
 </div>
 
+<div id="image-viewer">
+    <div>
+        <span id="close">&times;</span>
+        <img id="full-image">
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.image').forEach(image => {
+        image.addEventListener('click', event => {
+            document.getElementById('full-image').setAttribute('src', image.getAttribute('src'));
+            document.getElementById('image-viewer').style.display = 'block';
+        })
+    })
+
+    document.getElementById('close').addEventListener('click', function() {
+        document.getElementById('image-viewer').style.display = 'none';
+    })
+</script>
 
 <!--footer-->
 <div class="row justify-content-center pt-2" style="background-color: black;">

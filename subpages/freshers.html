@@ -15,17 +15,73 @@
         max-width: 2000px;
         margin: auto;
     }
+
+    .image {
+    cursor: pointer;
+    transition: 0.3s;
+    opacity: 1;
+    }
+
+    .image:hover {opacity: 0.9;}
+
+    #image-viewer {
+        display: none;
+        z-index: 999;
+    }
+
+    #image-viewer div {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.7);
+        overflow: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #image-viewer div img {
+        display: block;
+        max-height: 70%;
+        max-width: 70%;
+        animation: showImage 0.5s;
+        opacity: 1;
+    }
+
+    @keyframes  showImage {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+    }
+
+    #close {
+        position: absolute;
+        top: 100px;
+        right: 35px;
+        color: white;
+        font-size: 50px;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    #close:hover, #close:focus {
+        opacity: 0.8;
+    }
+
+    @media  screen and (max-width: 700px) {
+        .viewer {
+            width: 100%;
+        }
+    }
 </style>
 <body style= "background-image: linear-gradient(to left, #004aad, #cb6be6);">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
-    <script>
-        window.onload = function() {
-        var elements = document.querySelectorAll( '.demo-image' );
-        Intense( elements );
-        }
-    </script>
-    <script src="../gallery-images.js"></script>
 </body>
 </html>
 
@@ -124,26 +180,46 @@
     </h5>
     <a style="text-align: center; text-decoration: none; color: aqua;" onmouseover="this.style.color='greenyellow';" onmouseout="this.style.color='aqua';" href="../pages/gallery.html"><span style="font-size: 16px; font-family: sans-serif;">Check our Gallery page for the link to the complete album.</span></a>
 </div>
-<section class="demos">
+<section class="demos images">
     <!-- Using divs for the demo, for formatting... you can use images if you want!  -->
-    <img class="demo-image" src="../assets/gallery images/freshers 01.JPG" alt="">
-    <img class="demo-image" src="../assets/gallery images/freshers 02.JPG" alt="">
-    <img class="demo-image" src="../assets/gallery images/freshers 03.JPG" alt="">
-    <img class="demo-image" src="../assets/gallery images/freshers 04.JPG" alt="">
-    <img class="demo-image" src="../assets/gallery images/freshers 05.JPG" alt="">
-    <img class="demo-image" src="../assets/gallery images/freshers 06.JPG" alt="">
-    <img class="demo-image" src="../assets/gallery images/freshers 07.JPG" alt="">
-    <img class="demo-image" src="../assets/gallery images/freshers 08.JPG" alt="">
-    <img class="demo-image" src="../assets/gallery images/freshers 09.JPG" alt="">
-    <img class="demo-image" src="../assets/gallery images/freshers 10.JPG" alt="">
-    <img class="demo-image" src="../assets/gallery images/freshers 11.JPG" alt="">
-    <img class="demo-image" src="../assets/gallery images/freshers 12.JPG" alt="">
-    <img class="demo-image" src="../assets/gallery images/freshers 13.JPG" alt="">
-    <img class="demo-image" src="../assets/gallery images/freshers 14.JPG" alt="">
-    <img class="demo-image" src="../assets/gallery images/freshers 15.JPG" alt="">
-    <img class="demo-image" src="../assets/gallery images/freshers 16.JPG" alt="">
-    <img class="demo-image" src="../assets/gallery images/freshers 17.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_freshers 1.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_freshers 2.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_freshers 3.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_freshers 4.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_freshers 5.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_freshers 6.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_freshers 7.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_freshers 8.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_freshers 9.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_freshers 10.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_freshers 11.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_freshers 12.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_freshers 13.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_freshers 14.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_freshers 15.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_freshers 16.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_freshers 17.JPG" alt="">
 </section>
+
+<div id="image-viewer">
+    <div>
+        <span id="close">&times;</span>
+        <img id="full-image">
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.image').forEach(image => {
+        image.addEventListener('click', event => {
+            document.getElementById('full-image').setAttribute('src', image.getAttribute('src'));
+            document.getElementById('image-viewer').style.display = 'block';
+        })
+    })
+
+    document.getElementById('close').addEventListener('click', function() {
+        document.getElementById('image-viewer').style.display = 'none';
+    })
+</script>
 
 <!--footer-->
 <div class="row justify-content-center pt-2" style="background-color: black;">
