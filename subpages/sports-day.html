@@ -177,6 +177,86 @@
     </div>
 </div>
 
+<div class="row justify-content-center my-1">
+    <h5 style="font-size: 24px; text-align: center;">
+        Select Gallery (Events)
+    </h5>
+</div>
+<section class="demos images">
+    <!-- Using divs for the demo, for formatting... you can use images if you want!  -->
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 1.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 2.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 3.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 4.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 5.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 6.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 7.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 8.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports 9.jpeg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 10.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports 11.jpeg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 12.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 13.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 14.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 15.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports 16.jpeg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports 17.jpeg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 18.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 19.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 20.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 21.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 22.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 23.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_sports 24.jpg" alt="">
+</section>
+
+<div class="row justify-content-center my-1">
+    <h5 style="font-size: 24px; text-align: center;">
+        Select Gallery (Prize Distribution Ceremony)
+    </h5>
+</div>
+<section class="demos images">
+    <!-- Using divs for the demo, for formatting... you can use images if you want!  -->
+    <img class="demo-image image" src="../assets/gallery images/compressed_prize 1.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_prize 2.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_prize 3.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_prize 4.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_prize 5.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_prize 6.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_prize 7.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_prize 8.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_prize 9.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_prize 10.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_prize 11.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_prize 12.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_prize 13.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_prize 14.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_prize 15.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_prize 16.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_prize 17.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/compressed_prize 18.JPG" alt="">
+</section>
+
+<div id="image-viewer">
+    <div>
+        <span id="close">&times;</span>
+        <img id="full-image">
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.image').forEach(image => {
+        image.addEventListener('click', event => {
+            document.getElementById('full-image').setAttribute('src', image.getAttribute('src'));
+            document.getElementById('image-viewer').style.display = 'block';
+        })
+    })
+
+    document.getElementById('close').addEventListener('click', function() {
+        document.getElementById('image-viewer').style.display = 'none';
+    })
+</script>
+
 <div class="row justify-content-center">
     <h4 class="py-3" style="text-align: center; color: black; font-weight: bold; font-size: 45px; font-family: Comication;">
         Results
