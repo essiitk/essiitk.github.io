@@ -158,6 +158,9 @@
     </div>
 </div>
 
+<!--This page generally consists of repeating elements (text, set of images, and a link to the full album)-->
+<!--Ensure at the images are not HD, as the page will be very slow and take a long time to load-->
+
 <div class="row justify-content-center">
     <h4 class="py-3" style="text-align: center; color: black; font-weight: bolder; font-size: 50px; font-family: Ostrich-Sans;">
         FAREWELL NIGHT 2024
@@ -237,7 +240,7 @@
 </div>
 
     
-<script>
+<script> /*IMPORTANT Section, this script ensures that the pictures show their behaviour when they are clicked*/
     document.querySelectorAll('.image').forEach(image => {
         image.addEventListener('click', event => {
             document.getElementById('full-image').setAttribute('src', image.getAttribute('src'));

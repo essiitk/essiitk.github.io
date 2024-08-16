@@ -91,6 +91,9 @@
 </body>
 </html>
 
+<!--almost all the individual events pages have a similar layout as well format-->
+<!--can simply copy this entire page and edit the details to create a new event pages-->
+
 <!--header-->
 <div class="row justify-content-center" style="background-image: url(../assets/pexels-quang-nguyen-vinh-2649403.jpg); background-position: center; background-size: cover; margin: auto;">
     <div class="col-2 py-1 d-none d-lg-block">
@@ -160,6 +163,7 @@
 </div>
 
 <!--main content-->
+<!--Poster + text and any important details-->
 <div class="row justify-content-center my-1">
     <h4 class="py-3 neon-text" style="text-align: center; color: white; font-size: 50px; font-family: Ostrich-Sans;">
         FAREWELL NIGHT 2024
@@ -187,7 +191,7 @@
     </h5>
     <a style="text-align: center; text-decoration: none; color: aqua;" onmouseover="this.style.color='greenyellow';" onmouseout="this.style.color='aqua';" href="../pages/gallery.html"><span style="font-size: 16px; font-family: sans-serif;">Check our Gallery page for the link to the complete album.</span></a>
 </div>
-<section class="demos images">
+<section class="demos images"> <!--a selected few images to be displayed on this page-->
     <!-- Using divs for the demo, for formatting... you can use images if you want!  -->
     <img class="demo-image image" src="../assets/gallery images/compressed_farewell 1.JPG" alt="">
     <img class="demo-image image" src="../assets/gallery images/compressed_farewell 2.JPG" alt="">
@@ -224,7 +228,7 @@
     </div>
 </div>
 
-<script>
+<script> /*IMPORTANT for images in a gallery format*/
     document.querySelectorAll('.image').forEach(image => {
         image.addEventListener('click', event => {
             document.getElementById('full-image').setAttribute('src', image.getAttribute('src'));

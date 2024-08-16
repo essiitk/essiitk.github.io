@@ -1,3 +1,6 @@
+/*most of the styles used in the different html pages of the website can be traced to this page where they are defined*/
+/*check how a particular element is stylized as well as how it is supposed to behave at different screensizes is difined in this file*/
+
 .car-item{
 }
 
@@ -55,7 +58,7 @@
   width: auto;
   }
 
-  @media only screen and (min-width: 1700px) {
+  @media only screen and (min-width: 1700px) { /*define the behaviour of an html element at a particular screen size*/
     .poster{
       height: 550px;
     }
@@ -162,6 +165,7 @@
 }
 
 /*Check out https://www.1001fonts.com for new fonts*/
+/*use the following format to link the .ttf or .otf file of a new font downloaded from the website to a specific font family*/
 @font-face {
    font-family: Averna-Rails;
    src: url(assets/Averna\ En\ Rails.ttf);
