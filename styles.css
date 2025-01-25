@@ -350,6 +350,11 @@
   src: url(assets/FontleroyBrownNF.ttf);
 }
 
+@font-face {
+  font-family: Balige;
+  src: url(assets/Balige_Personal_Use.otf)
+}
+
 .teachers-day-quote{
   font-family: Black-Chancery;
   color: white;
