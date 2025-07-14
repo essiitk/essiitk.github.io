@@ -347,6 +347,11 @@
 }
 
 @font-face {
+  font-family: Greatvibes;
+  src: url(assets/GreatVibes-Regular.ttf);
+}
+
+@font-face {
   font-family: Font-Leroy-Brown;
   src: url(assets/FontleroyBrownNF.ttf);
 }

@@ -15,6 +15,7 @@
         max-width: 2000px;
         margin: auto;
     }
+
     .image {
     cursor: pointer;
     transition: 0.3s;
@@ -43,8 +44,8 @@
 
     #image-viewer div img {
         display: block;
-        max-height: 70%;
-        max-width: 70%;
+        max-height: 65%;
+        max-width: 65%;
         animation: showImage 0.5s;
         opacity: 1;
     }
@@ -60,8 +61,7 @@
 
     #close {
         position: absolute;
-        top: 100px;
-        right: 35px;
+        bottom: 60px;
         color: white;
         font-size: 50px;
         transition: 0.3s;
@@ -77,16 +77,12 @@
             width: 100%;
         }
     }
+
 </style>
-<body style= "background-image: linear-gradient(to left, #addbac, #c7d6b5)">
+<body style= "background-image: linear-gradient(to bottom, #59c5f3, #BCE7E8, #59C5F3)">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
-    <script>
-        window.onload = function() {
-        var elements = document.querySelectorAll( '.demo-image' );
-        Intense( elements );
-        }
-    </script>
+    
     <script src="../gallery-images.js"></script>
 </body>
 </html>
@@ -110,7 +106,7 @@
             </h4>
         </div>
         <div class="row justify-content-center">
-            <nav class="navbar navbar-light sticky-top navbar-expand-md">
+            <nav class="navbar navbar-light navbar-expand-md">
                 <a href="../index.html" class="navbar-brand mx-3 h1 d-md-none">
                     <i class="fa-solid fa-house-chimney" style="color: white;"></i>
                 </a>
@@ -137,6 +133,8 @@
                               <li><a class="dropdown-item" href="../pages/events_main.html">All Events</a></li>
                               <li><hr class="dropdown-divider"></li>
                               <li><a class="dropdown-item" href="../subpages/teachers-day.html">Teacher's Day '24</a></li>
+                              <li><a class="dropdown-item" href="../subpages/heritage-day.html">Heritage Night '25</a></li>
+                              <li><a class="dropdown-item" href="../subpages/sports-day.html">Sports Meet '25</a></li>
                             </ul>
                         </li>
                         <li class="nav-item" style="padding-left: 40px; padding-right: 40px;">
@@ -159,101 +157,64 @@
 <!--main content-->
 <div class="row justify-content-center my-1">
     <h4 class="py-3" style="text-align: center; color: black; font-weight: bolder; font-size: 50px; font-family: Comication;">
-        ESS SPORTS MEET 2024
+        ESS SPORTS MEET 2025
     </h4>
     <div class="col-6 col-md-4 col-lg-3 justify-content-center" style="padding-left: 30px; padding-bottom: 20px;">
-        <img style="height: auto; width: 100%; max-width: 250px;" src="../assets/posters/ESS sports meet'24.jpg" alt="">
+        <img style="height: auto; width: 100%; max-width: 250px;" src="../assets/posters/sports meet 2025.png" alt="">
     </div>
     <div class="my-2 col-6 col-md-8 col-lg-9 justify-content-center upcoming-events-des sports-day">
-        <b>ESS Sports Meet 2024</b> is here to ignite your sports enthusiasm and eagerly anticipates witnessing your stellar performances on the field. Don't miss this opportunity to showcase your talent and a chance to win the trophies and medals. Register now for the games in which you wish to demonstrate your skills.
+        <b>ESS Sports Meet 2025</b> is here to ignite your sports enthusiasm and eagerly anticipates witnessing your stellar performances on the field. Don't miss this opportunity to showcase your talent and a chance to win the trophies and medals. Register now for the games in which you wish to demonstrate your skills.
         <br>
         <br>
-        <span style="color: brown;"><b>When:</b> 5th, 6th, and 7th April, 2024</span>
+        <span style="color: darkred;"><b>When:</b> 20th - 23rd March, 2025</span>
         <br>
-        <span><a href="https://forms.gle/evgEDv9tVVArU7k9A" target="_blank" style="text-decoration: none;">Click to register now for your favorite sports!</a></span>
-    </div>
+        </div>
 </div>
 
 <div class="row justify-content-center my-1">
     <h5 style="font-size: 24px; text-align: center;">
-        Select Gallery<br>
-        (Events)
+        Highlights
     </h5>
+    <a style="text-align: center; text-decoration: none; color: blue;" onmouseover="this.style.color='red';" onmouseout="this.style.color='blue';" href="../pages/gallery.html"><span style="font-size: 16px; font-family: sans-serif;">Check our Gallery page for the link to the complete album.</span></a>
 </div>
 <section class="demos images">
-    <!-- Using divs for the demo, for formatting... you can use images if you want!  -->
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 1.jpg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 2.jpg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 3.jpg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 4.jpg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 5.jpg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 6.jpg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 7.jpg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 8.jpg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/sports 9.jpeg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 10.jpg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/sports 11.jpeg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 12.jpg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 13.jpg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 14.jpg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 15.jpg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/sports 16.jpeg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/sports 17.jpeg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 18.jpg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 19.jpg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 20.jpg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 21.jpg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 22.jpg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 23.jpg" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_sports 24.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports_day_1.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports_day_3.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports_day_6.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports_day_4.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports_day_8.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports_day_9.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports_day_20.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports_day_25.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports_day_34.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports_day_41.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports_day_21.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports_day_19.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports_day_54.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports_day_17.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports_day_24.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/sports_day_39.jpg" alt="">
 </section>
 
 <div class="row justify-content-center my-1">
     <h5 style="font-size: 24px; text-align: center;">
-        (Prize Distribution Ceremony)
+        Prize Distribution Ceremony and Farewell Party
     </h5>
 </div>
 <section class="demos images">
-    <!-- Using divs for the demo, for formatting... you can use images if you want!  -->
-    <img class="demo-image image" src="../assets/gallery images/compressed_prize 1.JPG" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_prize 2.JPG" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_prize 3.JPG" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_prize 4.JPG" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_prize 5.JPG" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_prize 6.JPG" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_prize 7.JPG" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_prize 8.JPG" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_prize 9.JPG" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_prize 10.JPG" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_prize 11.JPG" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_prize 12.JPG" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_prize 13.JPG" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_prize 14.JPG" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_prize 15.JPG" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_prize 16.JPG" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_prize 17.JPG" alt="">
-    <img class="demo-image image" src="../assets/gallery images/compressed_prize 18.JPG" alt="">
+    <img class="demo-image image" src="../assets/gallery images/prize_4.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/prize_8.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/prize_6.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/prize_11.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/prize_13.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/prize_17.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/prize_1.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/prize_5.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/prize_2.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/prize_18.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/prize_14.jpg" alt="">
+    <img class="demo-image image" src="../assets/gallery images/prize_25.jpg" alt="">
 </section>
-
-<div id="image-viewer">
-    <div>
-        <span id="close">&times;</span>
-        <img id="full-image">
-    </div>
-</div>
-
-<script>
-    document.querySelectorAll('.image').forEach(image => {
-        image.addEventListener('click', event => {
-            document.getElementById('full-image').setAttribute('src', image.getAttribute('src'));
-            document.getElementById('image-viewer').style.display = 'block';
-        })
-    })
-
-    document.getElementById('close').addEventListener('click', function() {
-        document.getElementById('image-viewer').style.display = 'none';
-    })
-</script>
 
 <div class="row justify-content-center">
     <h4 class="py-3" style="text-align: center; color: black; font-weight: bold; font-size: 45px; font-family: Comication;">
@@ -424,15 +385,6 @@
             Okesh Chaudhary <i class="fa-solid fa-medal" style="color: #a9b0b4;"></i><br>
         </p>
     </div>
-    <div class="col-12 col-sm-6 col-md-4 justify-content-center">
-        <h3 style="font-family: 'Times New Roman', Times, serif; font-size: 25px; text-align: center; text-decoration: underline;">
-            Exhibition Match (Cricket)
-        </h3>
-        <p style="text-align: center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
-            Bharat Sharma and team <i class="fa-solid fa-medal" style="color: #ffd700;"></i><br>
-            Anupam Banerjee and team <i class="fa-solid fa-medal" style="color: #a9b0b4;"></i><br>
-        </p>
-    </div>
 </div>
 <br><br>
 <div class="row justify-content-center">
@@ -584,41 +536,13 @@
         </p>
     </div>
 </div>
-<!--<div class="col-12 justify-content-center">
-    <h5 style="font-family: 'Times New Roman', Times, serif; font-size: 27px; text-align: center; font-style: italic; font-weight: bold; color: blue;">
-        Best Athlete: Yuvraj Singh Kharte
-    </h5>
-</div>-->
-
-<!--<div class="row justify-content-center my-1">
-    <h5 style="font-size: 24px; text-align: center;">
-        Select Gallery
-    </h5>
-    <a style="text-align: center; text-decoration: none; color: blue;" onmouseover="this.style.color='green';" onmouseout="this.style.color='blue';" href="../pages/gallery.html"><span style="font-size: 16px; font-family: sans-serif;">Check our Gallery page for the link to the complete album.</span></a>
-</div>
-<section class="demos images">
-    <img class="demo-image image" src="" alt="">
-    <img class="demo-image image" src="" alt="">
-    <img class="demo-image image" src="" alt="">
-    <img class="demo-image image" src="" alt="">
-    <img class="demo-image image" src="" alt="">
-    <img class="demo-image image" src="" alt="">
-    <img class="demo-image image" src="" alt="">
-    <img class="demo-image image" src="" alt="">
-    <img class="demo-image image" src="" alt="">
-    <img class="demo-image image" src="" alt="">
-    <img class="demo-image image" src="" alt="">
-    <img class="demo-image image" src="" alt="">
-    <img class="demo-image image" src="" alt="">
-    <img class="demo-image image" src="" alt="">
-    <img class="demo-image image" src="" alt="">
-    <img class="demo-image image" src="" alt="">
-</section>-->
 
 <div id="image-viewer">
     <div>
-        <span id="close">&times;</span>
         <img id="full-image">
+        <span id="close" style="font-family: 'Times New Roman', Times, serif; font-size: 14px; margin-top: 10px; padding:5px 10px; background-color: #dc3545; color: #fff; text-decoration:none; border-radius: 3px;">
+            Close
+        </span>
     </div>
 </div>
 
@@ -634,13 +558,6 @@
         document.getElementById('image-viewer').style.display = 'none';
     })
 </script>
-
-<!--<div class="row justify-content-center my-1">
-    <h5 style="font-size: 24px; text-align: center;">
-        Select Gallery (To be Updated...)
-    </h5>
-    <span style=" text-align: center; font-size: 16px; font-family: sans-serif;">Check back after the event for the photos. Cheers!</span>
-</div>-->
 
 <!--footer-->
 <div class="row justify-content-center pt-2" style="background-color: black; margin: auto;">
