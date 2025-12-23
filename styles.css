@@ -197,6 +197,11 @@
    src: url(assets/mexcellent\ 3d.otf);
  }
  
+ @font-face {
+  font-family: Flowmery-Regular;
+  src: url(assets/Flowmery-Regular.ttf);
+ }
+
  .scrolling-wrapper {
    overflow-x: scroll;
    overflow-y: hidden;
