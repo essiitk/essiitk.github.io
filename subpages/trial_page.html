@@ -79,14 +79,291 @@
         }
     }
 
+    .tab {
+        overflow: hidden;
+        background-color: rgba(255,255,255,0.2);
+    }
+
+    .tab button {
+        background-color: inherit;
+        border: 1px solid rgba(0,0,0,0.1);
+        outline: none;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .tab button:hover {
+        background-color: rgba(255,255,255,0.7);
+        color: black;
+    }
+
+    .tab button.active {
+        background-color: rgba(255,255,255,0.5);
+    }
+
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid rgba(255,255,255,0.3);
+        border-top: none;
+    }
+
+    .image-container {
+        position: relative;
+        display: block; /* Keeps the container the exact size of the image */
+        max-width: 100%;
+    }
+
+    .image-container img {
+        display: block;
+        width: 100%; /* Makes the image responsive to the container */
+        height: auto;
+    }
+
+    .overlay-text {
+        position: absolute;
+        color: black; /* Makes text visible over dark images */
+        font-family: sans-serif;
+        font-size: 0.8rem;
+        font-weight: bold;
+        text-align: center;
+
+        border-radius: 15px;
+        padding: 5px 15px;
+        background-color: rgba(255, 255, 255, 0.7);
+        
+        /* Choose one of the positioning options below */
+        bottom: 15px;       /* Pushes the text 20px up from the very bottom edge */
+        left: 50%;          /* Moves the starting point to the middle of the image */
+        transform: translateX(-50%); /* Shifts the text back to perfectly align its center */
+        
+        white-space: nowrap; /* Prevents text from awkwardly wrapping on small screens */
+    }
+
+    .team-des{
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-style: italic;
+        font-size: 0.8rem;
+        color: blue;
+    }
+
+    @media  screen and (min-width: 500px) {
+        .overlay-text {
+            font-size: 0.9rem;
+        }
+        .team-des {
+            font-size: 0.9rem;
+        }
+    }
+
+    @media  screen and (min-width: 1100px) {
+        .overlay-text {
+            font-size: 1.1rem;
+        }
+        .team-des {
+            font-size: 1.1rem;
+        }
+    }
+
+    @media  screen and (min-width: 1300px) {
+        .overlay-text {
+            font-size: 1.3rem;
+        }
+        .team-des {
+            font-size: 1.3rem;
+        }
+    }
+
+    .accordion-button:focus {
+        box-shadow: none !important;
+        border-color: rgba(0,0,0,0.125);
+    }
+
+    .tablinks {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: large;
+    }
+
+    .section-head {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: x-large;
+        color: black;
+        font-weight: bold;
+    }
+
+    @media screen and (min-width: 1500px) {
+        .section-head {
+            font-size: xx-large;
+        }
+    }
+
+    p {
+        text-align: justify; /* Keeps your text justified */
+        
+        /* Crucial: Enables standard word hyphenation breaking rules */
+        -webkit-hyphens: auto; /* Required for Safari / older Chrome */
+        -ms-hyphens: auto;     /* Required for older IE/Edge versions */
+        hyphens: auto;         /* Standard rule for modern browsers */
+    }
+
+    .accordion-button img {
+        max-width: 100%; /* Prevents the image from overflowing out of the col-3 boundaries */
+        height: auto;    /* Retains the original proportions */
+        display: block;
+    }
+
+    .accordion-button.collapsed .show-on-expanded {
+        display: none !important;
+    }
+
+    /* Hide the collapsed view elements while the accordion is open */
+    .accordion-button:not(.collapsed) .show-on-collapsed {
+        display: none !important;
+    }
+
+    .accordion-button.events-accordion,
+    .accordion-button.events-accordion:not(.collapsed) {
+        background-color: rgba(255, 255, 255, 0.4) !important; /* Forces 20% transparent white */
+        color: inherit; /* Keeps your original text color from changing when expanded */
+    }
+
+    /* 2. Target the expanding body layout panel */
+    .accordion-collapse {
+        background-color: rgba(255, 255, 255, 0.4) !important;
+    }
+
+    .accordion-item {
+        background-color: transparent !important; /* Removes the default crisp white background box wrapper */
+        border: 1px solid rgba(255, 255, 255, 0.4) !important; /* Optional: Soft transparent borders to define the shape */
+    }
+
+    .image-gallery-container {
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    .image-gallery-container .images {
+        max-width: 800px;
+        display: grid;
+        margin: 0 auto;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 8px;
+    }
+
+    @media (min-width: 768px) {
+        .image-gallery-container .images {
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        }
+    }
+
+    .image-gallery-container .images .image {
+        cursor: pointer;
+    }
+
+    .image-gallery-container .images img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .image-gallery-container .lightbox {
+        position: fixed;
+        top: -100%;
+        left: 0;
+        height: 100vh;
+        width: 100%;
+        background: rgba(0,0,0,0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 400ms;
+    }
+
+    .image-gallery-container .lightbox.active {
+        top: 0;
+
+    }
+
+    .image-gallery-container .lightbox img {
+        height: 80vh;
+        border-radius: 10px;
+        border: 10px solid white;
+    }
+
+    .image-gallery-container .lightbox .image {
+        position: relative;
+    }
+
+    .image-gallery-container .lightbox .next-btn, .image-gallery-container .lightbox .previous-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 24px;
+        padding: 8px 16px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 16px -4px rgba(0,0,0,0.4);
+        cursor: pointer;
+    }
+
+    .image-gallery-container .lightbox .next-btn {
+        right: -20px;
+    }
+
+    .image-gallery-container .lightbox .previous-btn {
+        left: -20px;
+    }
+
+    @media (max-wifth: 900px) {
+        .image-gallery-container .lightbox .img {
+            width: 90vw;
+            object-fit: cover;
+        }
+
+        .image.image-gallery-container .lightbox .next-btn {
+            right: -10px;
+        }
+
+        .image.image-gallery-container .lightbox .previous-btn {
+            left: -10px;
+        }
+    }
+
+    .image-gallery-container .lightbox .options {
+        position: fixed;
+        top: 32px;
+        right: 32px;
+        background: white;
+        display: none;
+        align-items: center;
+        font-size: 28px;
+        padding: 6px 24px;
+        border-radius: 20px;
+        box-shadow: 0 4px 16px -4px rgba(0,0,0,0.4);
+    }
+
+    .image-gallery-container .lightbox.active .options {
+        display: flex;
+    }
+
+    .image-gallery-container .lightbox .close-btn {
+        margin-left: 20px;
+        cursor: pointer;
+    }
+
+    .image-gallery-container .lightbox .download-btn {
+        color: black;
+        font-size: 24px;
+    }
 </style>
 
 
-<body style= "background-image: linear-gradient(to bottom, #53093a, #f0f297)">
+<body style= "background-color: #BDDDFC">
     
     <!--<script src="../gallery-images.js"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+    <script src="https://kit.fontawesome.com/7cf001c976.js" crossorigin="anonymous"></script>
 </body>
 </html>
 
@@ -97,7 +374,7 @@
             <img src="../assets/ESS_logo.png" alt="" class="logos">
         </div>
     </div>
-    <div class="col justify-content-center">
+    <div class="col my-4 justify-content-center">
         <div class="row justify-content-center">
             <h1 style="text-align: center; font-family: Georgia, 'Times New Roman', Times, serif; color: white;">
                 <b>EARTH SCIENCE SOCIETY</b>
@@ -108,154 +385,517 @@
                 INDIAN INSTITUTE OF TECHNOLOGY KANPUR
             </h4>
         </div>
-        <div class="row justify-content-center">
-            <nav class="navbar navbar-light navbar-expand-md">
-                <a href="../index.html" class="navbar-brand mx-3 h1 d-md-none">
-                    <i class="fa-solid fa-house-chimney" style="color: white;"></i>
-                </a>
-                <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" class="mx-3 navbar-toggler" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fa-solid fa-bars" style="color: white;"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav"> <!--navbarNav is a variable to be used in the data-target-->
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item active" style="padding-left: 40px; padding-right: 40px;">
-                            <a href="../index.html" class="nav-link navbar-active navbar-links" onmouseover="this.style.color='greenyellow';" onmouseout="this.style.color='white';" style="color: white;">
-                                <b>Home</b>
-                            </a>
-                        </li>
-                        <li class="nav-item" style="padding-left: 40px; padding-right: 40px;">
-                            <a href="../pages/team.html" onmouseover="this.style.color='greenyellow';" onmouseout="this.style.color='white';" class="nav-link navbar-links" style="color: white;">
-                                <b>Team</b>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown" style="padding-left: 40px; padding-right: 40px;">
-                            <a class="nav-link navbar-links dropdown-toggle" href="#" onmouseover="this.style.color='greenyellow';" onmouseout="this.style.color='white';" style="color: white;" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                              <b>Events</b>
-                            </a>
-                            <ul class="dropdown-menu" style="background-color: rgba(255, 255, 255, 1); font-family: 'Times New Roman', Times, serif; font-size: 16px; color: black;" aria-labelledby="navbarDropdown">
-                              <li><a class="dropdown-item" href="../pages/events_main.html">All Events</a></li>
-                              <li><hr class="dropdown-divider"></li>
-                              <li><a class="dropdown-item" href="../subpages/teachers-day.html">Teacher's Day '24</a></li>
-                              <li><a class="dropdown-item" href="../subpages/heritage-day.html">Heritage Night '25</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item" style="padding-left: 40px; padding-right: 40px;">
-                            <a href="../pages/gallery.html" onmouseover="this.style.color='greenyellow';" onmouseout="this.style.color='greenyellow';" class="nav-link navbar-links" style="color: greenyellow;">
-                                <b>Gallery</b>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
     </div>
     <div class="col-2 py-1 d-none d-lg-block">
         <div class="container">
             <img src="../assets/IITK_logo.png" alt="" class="logos">
         </div>
     </div>
+    <div class="row justify-content-center tab" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+            <button class="col tablinks" onclick="openPage(event, 'Home')" id="defaultOpen">Home</button>
+            <button class="col tablinks" onclick="openPage(event, 'Team')">Team</button>
+            <button class="col tablinks" onclick="openPage(event, 'Events')">Events</button>
+            <button class="col tablinks" onclick="openPage(event, 'Gallery')">Gallery</button>
+    </div>
+</div>
+<div id="Home" class="tabcontent">
+    <h3>Home</h3>
+    <p>This is the Home page.</p>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item my-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button events-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    <div class="row w-100 pe-3 align-items-stretch events-accordion-default">
+                        <div class="col-12 col-sm-5 col-lg-4 col-xl-3 show-on-collapsed">
+                            <img src="../assets/posters/Epoch_26.png" alt="" class="img-fluid rounded">
+                        </div>
+                        <div class="col-12 col-sm-7 col-lg-8 col-xl-9 show-on-collapsed d-flex flex-column justify-content-between">
+                            <div class="row justify-content-center w-100 mx-0" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                                EPOCH '26
+                            </div>
+                            <span class="my-3">
+                                <h5 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: bolder;">The wait is finally over. EPOCH '26 is here!</h5><br>
+                                <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: justify; font-size: large;">We are delighted to invite the entire department to an evening dedicated to welcoming the newest members of our family and celebrating the spirit that brings all of us together.<br>
+                                EPOCH '26 is more than just a Freshers' Welcome, it is the beginning of new friendships, new memories, and a new chapter in the Earth Sciences journey. From exciting games and interactive sessions to batch performances, music, laughter, and conversations, we have planned an evening where every batch gets a chance to come together, connect, and celebrate.<br>
+                                <b>And of course, the evening will end with a delicious dinner buffet!</b><br></p>
+                                <p style="font-family: 'Courier New', Courier, monospace; text-align: justify;"><i class="fa-solid fa-alarm-clock"></i> When: 2nd October 2026, 5:30 pm onwards<br>
+                                <i class="fa-solid fa-car"></i> Where: ESB 3 Auditorium, IIT Kanpur<br>
+                                <i class="fa-solid fa-shirt"></i> Dress Code: Western</p>
+                            </span>
+                            <div class="row justify-content-center w-100 mx-0" style="font-family:'Times New Roman', Times, serif; font-size: small;">
+                                Click to expand!
+                            </div>
+                        </div>
+                        <div class="col-2 show-on-expanded">
+                        </div>
+                        <div class="col-8 show-on-expanded">
+                            <div class="row justify-content-center" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                                EPOCH '26
+                            </div>
+                        </div>
+                        <div class="col-2 show-on-expanded d-flex justify-content-end align-items-end text-end" style="font-family: 'Times New Roman', Times, serif; font-size: small;">
+                            Click here to close!
+                        </div>
+                    </div>
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="row w-100 pe-3 align-items-stretch events-accordion-default">
+                        <div class="col-12 show-on-collapsed">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item my-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button events-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseOne">
+                    <div class="row w-100 pe-3 align-items-stretch events-accordion-default">
+                        <div class="col-12 d-sm-none col-sm-5 col-lg-4 col-xl-3 show-on-collapsed">
+                            <img src="../assets/posters/Footprints_26.jpeg" alt="" class="img-fluid rounded">
+                        </div>
+                        <div class="col-12 col-sm-7 col-lg-8 col-xl-9 show-on-collapsed d-flex flex-column justify-content-between">
+                            <div class="row justify-content-center w-100 mx-0" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                                Footprints
+                            </div>
+                            <span class="my-3">
+                                <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: justify; font-size: large;">We are pleased to invite all 1st and 2nd year UG students to "Footprints", an interactive session focused on internships, research, career opportunities, applications, resumes, and interviews.<br>
+                                The session will feature student speakersm who will share their first-hand experiences, application strategies, resume tips, and interview questions. The session will also provide an overview of pathways available ahead, including branch-change opportunities, research and internship avenues, and other academic options.<br>
+                                This will also incude an interactive Q/A, giving you the opportunity to directly interact with the speakers and clarify your doubts.<br></p>
+                                <p style="font-family: 'Courier New', Courier, monospace; text-align: justify;"><i class="fa-solid fa-alarm-clock"></i> When: 24th September 2026, 6:30 pm onwards<br>
+                                <i class="fa-solid fa-car"></i> Where: ESB 3 Auditorium, IIT Kanpur<br></p>
+                            </span>
+                            <div class="row justify-content-center w-100 mx-0" style="font-family:'Times New Roman', Times, serif; font-size: small;">
+                                Click to expand!
+                            </div>
+                        </div>
+                        <div class="col-12 d-none d-sm-block col-sm-5 col-lg-4 col-xl-3 show-on-collapsed">
+                            <img src="../assets/posters/Footprints_26.jpeg" alt="" class="img-fluid rounded">
+                        </div>
+                        <div class="col-2 show-on-expanded">
+                        </div>
+                        <div class="col-8 show-on-expanded">
+                            <div class="row justify-content-center" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                                Footprints
+                            </div>
+                        </div>
+                        <div class="col-2 show-on-expanded d-flex justify-content-end align-items-end text-end" style="font-family: 'Times New Roman', Times, serif; font-size: small;">
+                            Click here to close!
+                        </div>
+                    </div>
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>This is the first item’s accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item my-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button events-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseOne">
+                    <div class="row w-100 pe-3 align-items-stretch events-accordion-default">
+                        <div class="col-12 col-sm-5 col-lg-4 col-xl-3 show-on-collapsed">
+                            <img src="../assets/posters/Teachers_day_26.jpeg" alt="" class="img-fluid rounded">
+                        </div>
+                        <div class="col-12 col-sm-7 col-lg-8 col-xl-9 show-on-collapsed d-flex flex-column justify-content-between">
+                            <div class="row justify-content-center w-100 mx-0" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                                Teachers' Day
+                            </div>
+                            <span class="my-3">
+                                <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: justify; font-size: large;">It gives us great pleasure to invite you to our Teachers' Day Celebration, an evening dedicated to honouring the mentors who shape our academic and intellectual journeys.<br>
+                                The evening promises to be a warm and memorable gathering, featuring heartfelt tributes, engaging performances, and moments of appreciation for our esteemed faculty.<br>
+                                This celebration is our way of expressing gratitude to the professors and teachers who have guided us with patience and wisdom throughout our time in the Earth Sciences department. Your presence would add immense value to this occasion and help make it a fitting tribute to our teachers.<br>
+                                <b>Refreshments will be provided to all the attendees.</b><br></p>
+                                <p style="font-family: 'Courier New', Courier, monospace; text-align: justify;"><i class="fa-solid fa-alarm-clock"></i> When: 7th September 2026, 6:00 pm onwards<br>
+                                <i class="fa-solid fa-car"></i> Where: ESB 3 Auditorium, IIT Kanpur<br></p>
+                            </span>
+                            <div class="row justify-content-center w-100 mx-0" style="font-family:'Times New Roman', Times, serif; font-size: small;">
+                                Click to expand!
+                            </div>
+                        </div>
+                        <div class="col-2 show-on-expanded">
+                        </div>
+                        <div class="col-8 show-on-expanded">
+                            <div class="row justify-content-center" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                                Teachers' Day
+                            </div>
+                        </div>
+                        <div class="col-2 show-on-expanded d-flex justify-content-end align-items-end text-end" style="font-family: 'Times New Roman', Times, serif; font-size: small;">
+                            Click here to close!
+                        </div>
+                    </div>
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>This is the first item’s accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="image-gallery-container">
+        <div class="images">
+            <div class="image" onclick="showImage(this);">
+                <img src="../assets/gallery images/compressed_heritage_night_1.JPG" alt="">
+            </div>
+            <div class="image" onclick="showImage(this);">
+                <img src="../assets/gallery images/compressed_heritage_night_2.JPG" alt="">
+            </div>
+            <div class="image" onclick="showImage(this);">
+                <img src="../assets/gallery images/compressed_heritage_night_20.JPG" alt="">
+            </div>
+            <div class="image" onclick="showImage(this);">
+                <img src="../assets/gallery images/compressed_heritage_night_25.JPG" alt="">
+            </div>
+        </div>
+        <div class="lightbox">
+            <div class="image">
+                <img src="../assets/gallery images/compressed_heritage_night_1.JPG" alt="">
+                <div class="title">Testing</div>
+                <div class="next-btn"><i class="fa-solid fa-caret-right"></i></div>
+                <div class="previous-btn"><i class="fa-solid fa-caret-left"></i></div>
+            </div>
+            <div class="options">
+            <a href="#" class="download-btn" download><i class="fa-solid fa-arrow-down"></i></a>
+            <div class="close-btn"><i class="fa-regular fa-circle-xmark"></i></div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div id="Team" class="tabcontent" style="background-color: BDDDFC;">
+    <div class="row justify-content-center">
+        <p style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: justify; font-size: medium;">
+            <b>ESS is a student-led society in the Department of Earth Sciences, IIT Kanpur. The ESS 2026-27 term has 10 core team members. Each term has assigned faculty advisors, who supervise the overall activities. Dr T. H. Syed and Dr A. Banerjee are the faculty advisors for the 2026-27 term.</b>
+        </p>
+    </div>
+    <div class="row justify-content-center section-head" style="">
+        Faculty Advisors
+    </div>
+    <div class="row justify-content-center">
+        <div class="row my-2 justify-content-center">
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img src="../assets/team/T-H-Syed (new).png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Dr Tajdarul Hassan Syed
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img src="../assets/team/A Banerjee (new).png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Dr Anupam Banerjee
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center section-head">
+        Core Team
+    </div>
+    <div class="row justify-content-center">
+        <div class="row my-2 justify-content-center"> <!--Student core team member details-->
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img src="../assets/team/Nikki_Banshal.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Nikki Banshal<br>
+                        <span class="team-des">President</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img src="../assets/team/anupam_dey.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Anupam Dey<br>
+                        <span class="team-des">Vice-president</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img src="../assets/team/Harun.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Md. Harun Rashid<br>
+                        <span class="team-des">Secretary</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img src="../assets/team/Anupriya.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Anupriya Raj<br>
+                        <span class="team-des">Treasurer</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img src="../assets/team/Himani.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Himani<br>
+                        <span class="team-des">Cultural Secretary</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img src="../assets/team/Shivani_Patel.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Shivani Patel<br>
+                        <span class="team-des">Cultural Secretary</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img src="../assets/team/Arpita_Verma.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Arpita Verma<br>
+                        <span class="team-des">Sports Secretary</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img src="../assets/team/Sneha.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Sneha<br>
+                        <span class="team-des">Sports Secretary</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img src="../assets/team/Kali_Aravind.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Kali Aravind<br>
+                        <span class="team-des">Creative, Media, &<br>
+                        Publicity Secretary</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img src="../assets/team/aaditya_mittal.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Aaditya Mittal<br>
+                        <span class="team-des">Creative, Media, &<br>
+                        Publicity Secretary</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="accordion accordion-flush" id="accordionFlushExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseThree" style="background-color: #88BDF2;">
+                <h3 style="text-align: center; color: black; font-family: fantasy;">
+                    2025-26
+                </h3>
+            </button>
+        </h2>
+        <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body" style="text-align: center; background-color: rgba(136, 189, 242, 0.8)">
+                <div class="p-3" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    <span style="font-size: 20px; font-weight: bold;">Faculty advisors: Dr. Tajdarul Hassan Syed & Dr. Anupam Banerjee</span><br>
+                    <br>
+                    <span style="font-size: 17px;"><b>President:</b> Satyaki Banerjee<br>
+                    <b>Vice-President:</b> Kirtimaan Pandey<br>
+                    <b>Secretary:</b> Gaurav Kumar Sinha<br>
+                    <b>Treasurer:</b> Soumi Das<br>
+                    <b>Cultural Secretary:</b> Sasmita Maharana<br>
+                    <b>Creative, Media, and Publicity Secretary:</b> Navin Patel<br>
+                    <b>Sports Secretary:</b> Srijan Mukherjee<br>
+                    <b>Photographer:</b> Mridul Anand<br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseThree"  style="background-color: #88BDF2;">
+                <h3 style="text-align: center; color: black; font-family: fantasy;">
+                    2024-25
+                </h3>
+            </button>
+        </h2>
+        <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body" style="text-align: center; background-color: rgba(136, 189, 242, 0.8)">
+                <div class="p-3" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    <span style="font-size: 20px; font-weight: bold;">Faculty advisors: Dr. Tajdarul Hassan Syed & Dr. Anupam Banerjee</span><br>
+                    <br>
+                    <span style="font-size: 17px;"><b>President:</b> Srijan Mukherjee<br>
+                    <b>Vice-President:</b> Capriate Yadav<br>
+                    <b>Secretary:</b> Spoorthi Vikas Jilukara<br>
+                    <b>Treasurer:</b> Pragati Singh<br>
+                    <b>Cultural Secretary:</b> Amlan Chandan Das<br>
+                    <b>Creative, Media, and Publicity Secretary:</b> Saumya Kukreti<br>
+                    <b>Designer Secretary:</b> Soumi Das<br>
+                    <b>Sports Secretary:</b> Myathari Samson<br>
+                    <b>Photographer:</b> Arpit Singh<br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree" style="background-color: #88BDF2;">
+                <h3 style="text-align: center; color: black; font-family: fantasy;">
+                    2023-24
+                </h3>
+            </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body" style="text-align: center; background-color: rgba(136, 189, 242, 0.8)">
+                <div class="p-3" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    <span style="font-size: 20px; font-weight: bold;">Faculty advisor: Dr. Indra Sekhar Sen</span><br>
+                    <br>
+                    <span style="font-size: 17px;"><b>President:</b> Ayush Gupta<br>
+                    <b>Vice-President:</b> Gaurav Jaiswal<br>
+                    <b>Secretary:</b> Harsh Verma & Hitesh Arunagiri<br>
+                    <b>Treasurers:</b> Keerthi Chandra & Subhangi Jarwal<br>
+                    <b>Cultural Secretaries:</b> Swarn Raj Singh & Shreya Shukla<br>
+                    <b>Creative, Media, and Publicity Secretaries:</b> Ayushi Nautiyal & Krish Agarwal<br>
+                    <b>Sports Secretaries:</b> Sarthak Papney & Adarsh Mishra<br>
+                    <b>Photographers:</b> Ramswroop Ishram & Arya Sorate<br>
+                    <b>Website Handler:</b> Swastik Suman Behera<br></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" style="background-color: #88BDF2;">
+                <h3 style="text-align: center; color: black; font-family: fantasy;">
+                    2022-23
+                </h3>
+            </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body" style="text-align: center; background-color: rgba(136, 189, 242, 0.8)">
+                <div class="p-3" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    <span style="font-size: 20px; font-weight: bold;">Faculty advisor: Dr. Deepa Mele Veedu</span><br>
+                    <br>
+                    <span style="font-size: 17px;"><b>President:</b> Rajiv Ranjan<br>
+                    <b>Vice-President:</b> Kavya Agarwal<br>
+                    <b>Secretary:</b> Vinay Joshi<br>
+                    <b>Treasurers:</b> Pragati Kharya & Vatsalya Roy<br>
+                    <b>Cultural Secretaries:</b> Arbaz Pathan & Pranjal Jain<br>
+                    <b>Creative, Media, and Publicity Secretaries:</b> Anubhav Jain & Gourav Jaiswal<br>
+                    <b>Sports Secretaries:</b> Banoth Naveen & Pratik Chougule<br></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo" style="background-color: #88BDF2;">
+                <h3 style="text-align: center; color: black; font-family: fantasy;">
+                    2021-22
+                </h3>
+            </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body" style="text-align: center; background-color: rgba(136, 189, 242, 0.8)">
+                <div class="p-3" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    <!--<span style="font-size: 20px; font-weight: bold;"></span><br>
+                    <br>-->
+                    <span style="font-size: 17px;"><b>President:</b> Ananya P. Mukherjee<br>
+                    <b>Vice-President:</b> Earth Sugandhi<br>
+                    <b>Secretary:</b> Kavya Agarwal<br>
+                    <b>Treasurer:</b> Arun Kumar<br>
+                    <b>Cultural Secretary:</b> Prachi Priya<br>
+                    <b>Creative, Media, and Publicity Secretaries:</b> Lavudya Rajkumar & Anjan Haldar<br>
+                    <b>Sports Secretaries:</b> Aditya Shekhawat & Sachin Kumar<br></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div id="Events" class="tabcontent">
+    <h3>Events</h3>
+    <p>This is the Events page.</p>
+</div>
+
+<div id="Gallery" class="tabcontent">
+    <h3>Gallery</h3>
+    <p>This is the Gallery page.</p>
 </div>
 
 <!--This page generally consists of repeating elements (text, set of images, and a link to the full album)-->
 <!--Ensure at the images are not HD, as the page will be very slow and take a long time to load-->
 
-<div class="row justify-content-center">
-    <h4 class="py-3" style="text-align: center; color: black; font-weight: bolder; font-size: 50px; font-family: Balige;">
-        HERITAGE NIGHT 2025
-    </h4>
-    <div class="images demos">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_1.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_4.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_7.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_9.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_10.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_12.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_14.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_15.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_17.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_21.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_24.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_26.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_27.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_28.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_32.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_37.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_38.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_39.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_40.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_41.JPG" alt="">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_heritage_night_42.JPG" alt="">
-    </div>
-    <br>
-    <a style="font-family: 'Courier New', Courier, monospace; font-weight: bold; color: aqua; text-align: center; text-decoration: none; font-size: 24px;" href="https://drive.google.com/drive/folders/18aBx3rWbX9eCCtWkancRyvHGt7KAoJ7r" target="_blank">Full Album>></a>
-</div>
-
-<!--<div class="row justify-content-center">
-    <h4 class="py-3" style="text-align: center; color: black; font-weight: bolder; font-size: 35px; font-family: Bubble-Love;">
-        FRESHERS' NIGHT 2023
-    </h4>
-    <div class="images demos">
-        <img class="gallery-demo-image image" data-index="1" src="../assets/gallery images/compressed_freshers 1.JPG" alt="">
-    </div>
-
-    <br>
-    <a style="font-family: 'Courier New', Courier, monospace; font-weight: bold; color: aqua; text-align: center; text-decoration: none; font-size: 24px;" href="https://iitk-my.sharepoint.com/personal/ayushgupta20_iitk_ac_in/_layouts/15/onedrive.aspx?ga=1&id=%2Fpersonal%2Fayushgupta20%5Fiitk%5Fac%5Fin%2FDocuments%2FEarth%20Science%20Society%2FFreshers%5FNight%5F23%5FESS" target="_blank">Full Album>></a>
-</div>-->
-
-<div class="row justify-content-center">
-    <h4 class="py-3" style="text-align: center; color: black; font-weight: bolder; font-size: 45px; font-family: Dosis-ExtraBold;">
-        TEACHER'S DAY 2024
-    </h4>
-    <section class="demos images">
-        <!-- Using divs for the demo, for formatting... you can use images if you want!  -->
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_1.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_2.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_21.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_3.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_15.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_20.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_4.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_16.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_5.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_6.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_18.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_7.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_8.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_17.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_9.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_10.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_11.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_19.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_12.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_13.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_14.JPG" alt="">
-        <img class="gallery-demo-image image" src="../assets/gallery images/compressed_teachers_day_22.JPG" alt="">
-    </section>
-    <br>
-    <a style="font-family: 'Courier New', Courier, monospace; font-weight: bold; color: aqua; text-align: center; text-decoration: none; font-size: 24px;" href="https://drive.google.com/drive/folders/1c6KqeLwm6fx3d2Tp5_lHSbceng9eDp-X" target="_blank">Full Album>></a>
-</div>
-
-<div id="image-viewer">
-    <div>
-        <img id="full-image">
-        <span id="close" style="font-family: 'Times New Roman', Times, serif; font-size: 14px; margin-top: 10px; padding:5px 10px; background-color: #dc3545; color: #fff; text-decoration:none; border-radius: 3px;">
-            Close
-        </span>
-    </div>
-</div>
-
     
 <script> /*IMPORTANT Section, this script ensures that the pictures show their behaviour when they are clicked*/
-    document.querySelectorAll('.image').forEach(image => {
-        image.addEventListener('click', event => {
-            document.getElementById('full-image').setAttribute('src', image.getAttribute('src'));
-            document.getElementById('image-viewer').style.display = 'block';
-        })
-    })
+    function openPage(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
 
-    document.getElementById('close').addEventListener('click', function() {
-        document.getElementById('image-viewer').style.display = 'none';
-    })
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+    document.getElementById("defaultOpen").click();
+
+    const lightbox = document.querySelector(".image-gallery-container .lightbox");
+    const lightboxImage = document.querySelector(".image-gallery-container .lightbox img");
+    const lightboxTitle = document.querySelector(".image-gallery-container .lightbox .title");
+    const downloadBtn = document.querySelector(".image-gallery-container .download-btn");
+    const nextBtn = document.querySelector(".image-gallery-container .next-btn");
+    const previousBtn = document.querySelector(".image-gallery-container .previous-btn");
+    const closeBtn = document.querySelector(".image-gallery-container .close-btn");
+
+    let currentImage = "";
+
+    const showImage = (data) => {
+        currentImage = data;
+        lightbox.classList.add("active");
+        let image = data.querySelector("img");
+
+        lightboxImage.src = image.src;
+        downloadBtn.href = image.src;
+    };
+
+    closeBtn.addEventListener("click", () => {
+        lightbox.classList.remove("active");
+    });
+
+    nextBtn.addEventListener("click", () => {
+        if (currentImage.nextElementSibling) {
+            currentImage = currentImage.nextElementSibling;
+            showImage(currentImage);
+        }
+    });
+
+    previousBtn.addEventListener("click", () => {
+        if (currentImage.previousElementSibling) {
+            currentImage = currentImage.previousElementSibling;
+            showImage(currentImage);
+        }
+    });
 </script>
 
 <!--footer-->
