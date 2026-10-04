@@ -355,6 +355,150 @@
         color: black;
         font-size: 24px;
     }
+
+    /* --- Core Container Styling --- */
+/* --- Core Container Styling with Aspect Ratio Lock --- */
+.announcement-card {
+  position: relative;
+  display: grid;
+  /* 1. Left side content area reduced to 40% to shift partition leftwards */
+  grid-template-columns: 40% 60%; 
+  background-color: #11141a;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  /* 2. Hard-locked 3:1 aspect ratio configuration for desktop screens */
+  aspect-ratio: 3 / 1; 
+}
+
+/* --- Left Text Panel with Shifted Slanted Mask --- */
+.announcement-content {
+  background: linear-gradient(135deg, #1e2430 0%, #0f1319 100%);
+  color: #ffffff;
+  /* Reduced padding to fit text within a narrower left-side column */
+  padding: 30px 45px 30px 35px; 
+  display: flex;
+  align-items: center;
+  z-index: 2;
+  
+  /* 3. New polygon values shifts the slice angle sharper and further left */
+  clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
+  margin-right: -12%; /* Deeper overlap layer to cover the image slice area */
+}
+
+/* Content Layout Adjustments */
+.content-wrapper {
+  width: 100%;
+}
+
+.badge {
+  background-color: #0d6efd;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+/* Scales typography to fit comfortably inside a 3:1 window strip */
+.content-wrapper h2 {
+  font-size: 28px; 
+  font-weight: 800;
+  margin-top: 10px;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.content-wrapper p {
+  color: #a0aec0;
+  line-height: 1.5;
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+
+/* Event Metadata Details Row */
+.event-meta {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  color: #cbd5e0;
+}
+.event-meta i {
+  color: #0d6efd;
+  margin-right: 4px;
+}
+
+/* Premium Action Button */
+.action-btn {
+  display: inline-block;
+  background-color: #ffffff;
+  color: #0f1319;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.action-btn:hover {
+  background-color: #0d6efd;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* --- Right Side: Visual Image Graphic --- */
+.announcement-image {
+  position: relative;
+  width: 115%; 
+  height: 100%;
+  z-index: 1;
+}
+
+.announcement-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  object-position: center center;
+}
+
+/* --- Responsive Media Queries (Mobile Breakpoint) --- */
+@media (max-width: 576px) {
+  .announcement-card {
+    grid-template-columns: 100%; 
+    
+    /* 4. Hard-locked 1:1 perfect square aspect ratio for mobile screens */
+    aspect-ratio: 1 / 1; 
+  }
+  
+  .announcement-content {
+    clip-path: none; 
+    margin-right: 0;
+    padding: 20px;
+    order: 2; 
+    height: 60%; /* Distributes container balance visually on the square grid */
+  }
+  
+  .announcement-image {
+    width: 100%;
+    height: 40%;
+    order: 1;
+  }
+  
+  .content-wrapper h2 {
+    font-size: 22px;
+  }
+  .content-wrapper p {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+}
+
+
 </style>
 
 
@@ -562,6 +706,28 @@
             <a href="#" class="download-btn" download><i class="fa-solid fa-arrow-down"></i></a>
             <div class="close-btn"><i class="fa-regular fa-circle-xmark"></i></div>
         </div>
+        </div>
+    </div>
+    <div class="announcement-card">
+    <!-- Left Side: Slanted Content Panel -->
+        <div class="announcement-content">
+            <div class="content-wrapper">
+            <span class="badge">Special Event</span>
+            <h2>EPOCH '26</h2>
+            <p>The wait is finally over. We are delighted to invite the entire department to an evening dedicated to celebrating the spirit that brings us all together. Join us for performances, laughter, and new friendships!</p>
+            
+            <div class="event-meta">
+                <div><i class="bi bi-clock-fill"></i> Oct 2nd, 5:30 PM</div>
+                <div><i class="bi bi-geo-alt-fill"></i> ESB 3 Auditorium, IITK</div>
+            </div>
+            
+            <a href="#" class="action-btn">Register Now</a>
+            </div>
+        </div>
+        
+        <!-- Right Side: The Background Visual Image -->
+        <div class="announcement-image">
+            <img src="../assets/posters/Epoch_26.png" alt="Epoch 26 Poster Asset">
         </div>
     </div>
 </div>
