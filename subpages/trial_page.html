@@ -243,15 +243,24 @@
     }
 
     .image-gallery-container .images {
-        max-width: 800px;
+        max-width: 900px;
         display: grid;
         margin: 0 auto;
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
         gap: 8px;
     }
 
+
+
     @media (min-width: 768px) {
         .image-gallery-container .images {
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        }
+    }
+
+    @media (min-width: 1400px) {
+        .image-gallery-container .images {
+            max-width: 1200px;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
         }
     }
@@ -266,7 +275,40 @@
         object-fit: cover;
     }
 
+    .image-gallery-container .images1 {
+        max-width: 1400px;
+        display: grid;
+        margin: 0 auto;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 8px;
+    }
+
+    @media (min-width: 790px) {
+        .image-gallery-container .images1 {
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        }
+    }
+
+    @media (min-width: 1060px) {
+        .image-gallery-container .images1 {
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        }
+    }
+
+    .image-gallery-container .images1 .image {
+        cursor: pointer;
+    }
+
+    .image-gallery-container .images1 img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
     .image-gallery-container .lightbox {
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none;     /* IE 10 and IE 10+ */
+        user-select: none;         /* Standard syntax (Chrome, Firefox, Edge, Opera) */
         position: fixed;
         top: -100%;
         left: 0;
@@ -285,7 +327,8 @@
     }
 
     .image-gallery-container .lightbox img {
-        height: 80vh;
+        max-width: 80vw;
+        max-height: 80vh;
         border-radius: 10px;
         border: 10px solid white;
     }
@@ -356,148 +399,143 @@
         font-size: 24px;
     }
 
-    /* --- Core Container Styling --- */
-/* --- Core Container Styling with Aspect Ratio Lock --- */
-.announcement-card {
-  position: relative;
-  display: grid;
-  /* 1. Left side content area reduced to 40% to shift partition leftwards */
-  grid-template-columns: 40% 60%; 
-  background-color: #11141a;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  
-  /* 2. Hard-locked 3:1 aspect ratio configuration for desktop screens */
-  aspect-ratio: 3 / 1; 
-}
-
-/* --- Left Text Panel with Shifted Slanted Mask --- */
-.announcement-content {
-  background: linear-gradient(135deg, #1e2430 0%, #0f1319 100%);
-  color: #ffffff;
-  /* Reduced padding to fit text within a narrower left-side column */
-  padding: 30px 45px 30px 35px; 
-  display: flex;
-  align-items: center;
-  z-index: 2;
-  
-  /* 3. New polygon values shifts the slice angle sharper and further left */
-  clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
-  margin-right: -12%; /* Deeper overlap layer to cover the image slice area */
-}
-
-/* Content Layout Adjustments */
-.content-wrapper {
-  width: 100%;
-}
-
-.badge {
-  background-color: #0d6efd;
-  color: white;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: bold;
-}
-
-/* Scales typography to fit comfortably inside a 3:1 window strip */
-.content-wrapper h2 {
-  font-size: 28px; 
-  font-weight: 800;
-  margin-top: 10px;
-  margin-bottom: 8px;
-  letter-spacing: -0.5px;
-}
-
-.content-wrapper p {
-  color: #a0aec0;
-  line-height: 1.5;
-  font-size: 13px;
-  margin-bottom: 15px;
-}
-
-/* Event Metadata Details Row */
-.event-meta {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 20px;
-  font-size: 12px;
-  color: #cbd5e0;
-}
-.event-meta i {
-  color: #0d6efd;
-  margin-right: 4px;
-}
-
-/* Premium Action Button */
-.action-btn {
-  display: inline-block;
-  background-color: #ffffff;
-  color: #0f1319;
-  padding: 8px 20px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-.action-btn:hover {
-  background-color: #0d6efd;
-  color: #ffffff;
-  transform: translateY(-1px);
-}
-
-/* --- Right Side: Visual Image Graphic --- */
-.announcement-image {
-  position: relative;
-  width: 115%; 
-  height: 100%;
-  z-index: 1;
-}
-
-.announcement-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; 
-  object-position: center center;
-}
-
-/* --- Responsive Media Queries (Mobile Breakpoint) --- */
-@media (max-width: 576px) {
-  .announcement-card {
-    grid-template-columns: 100%; 
+    .announcement-banner {
+    --banner-ratio: 3 / 1;
+    --text-color: #ffffff;
+    --accent-color: #007bff;
     
-    /* 4. Hard-locked 1:1 perfect square aspect ratio for mobile screens */
-    aspect-ratio: 1 / 1; 
-  }
-  
-  .announcement-content {
-    clip-path: none; 
-    margin-right: 0;
-    padding: 20px;
-    order: 2; 
-    height: 60%; /* Distributes container balance visually on the square grid */
-  }
-  
-  .announcement-image {
+    position: relative;
     width: 100%;
-    height: 40%;
-    order: 1;
-  }
-  
-  .content-wrapper h2 {
-    font-size: 22px;
-  }
-  .content-wrapper p {
-    font-size: 12px;
-    margin-bottom: 10px;
-  }
-}
+    aspect-ratio: var(--banner-ratio);
+    overflow: hidden;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    box-sizing: border-box;
+    container-type: inline-size;
+    }
 
+    .announcement-banner * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    }
+
+    /* 1. Underlying image container spans full canvas */
+    .announcement-banner .banner-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    }
+
+    .announcement-banner .banner-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill; 
+    display: block;
+    }
+
+    /* 2. Text overlay layer with a solid black background */
+    .announcement-banner .banner-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 30%; /* Controls how far across the banner the black block extends */
+    z-index: 2; /* Sits directly on top of the image */
+    
+    /* CRITICAL CHANGE: Added solid black background overlay */
+    background-color: #000000; 
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 5%;
+    color: var(--text-color);
+    font-size: 2.2cqw; 
+    }
+
+    /* Typography elements scaling safely */
+    .announcement-banner .banner-content h2 {
+    font-size: 1.8em; 
+    margin-bottom: 0.2em;
+    line-height: 1.1;
+    font-weight: 700;
+    }
+
+    .announcement-banner .banner-content p {
+    font-size: 0.9em;
+    margin-bottom: 0.8em;
+    line-height: 1.3;
+    opacity: 0.9;
+    }
+
+    /* Action Button */
+    .announcement-banner .banner-btn {
+    display: inline-block;
+    padding: 0.4em 1em;
+    font-size: 0.8em;
+    font-weight: 600;
+    color: #fff;
+    background-color: var(--accent-color);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+    }
+
+    .announcement-banner .banner-btn:hover {
+    background-color: #0056b3;
+    }
+
+    .main-box{
+    background: rgba(248, 249, 250, 0.5) ;
+    }
+
+    .normal-text{
+        font-family: 'Times New Roman', Times, serif;
+        font-style: normal;
+        color: black;
+        font-size: 20px;
+        text-align: justify;
+    }
+
+    .quote-box{
+        background-color: rgba(248, 249, 250, 0.8);
+    }
+
+    .quote-text{
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: large;
+        font-style: italic;
+        text-align: justify;
+        color: black;
+    }
+
+    .poster{
+        height: 450px;
+        width: auto;
+    }
+
+    @media only screen and (min-width: 1700px) { /*define the behaviour of an html element at a particular screen size*/
+        .poster{
+            height: 550px;
+        }
+    }
+
+    @media only screen and (max-width: 800px) {
+        .poster{
+            height: 250px;
+        }
+    }
+
+    .quote-by{
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 20px;
+        color: black;
+        font-weight: bolder;
+    }
 
 </style>
 
@@ -543,191 +581,195 @@
     </div>
 </div>
 <div id="Home" class="tabcontent">
-    <h3>Home</h3>
-    <p>This is the Home page.</p>
-    <div class="accordion" id="accordionExample">
-        <div class="accordion-item my-3">
-            <h2 class="accordion-header">
-                <button class="accordion-button events-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                    <div class="row w-100 pe-3 align-items-stretch events-accordion-default">
-                        <div class="col-12 col-sm-5 col-lg-4 col-xl-3 show-on-collapsed">
-                            <img src="../assets/posters/Epoch_26.png" alt="" class="img-fluid rounded">
-                        </div>
-                        <div class="col-12 col-sm-7 col-lg-8 col-xl-9 show-on-collapsed d-flex flex-column justify-content-between">
-                            <div class="row justify-content-center w-100 mx-0" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
-                                EPOCH '26
-                            </div>
-                            <span class="my-3">
-                                <h5 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: bolder;">The wait is finally over. EPOCH '26 is here!</h5><br>
-                                <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: justify; font-size: large;">We are delighted to invite the entire department to an evening dedicated to welcoming the newest members of our family and celebrating the spirit that brings all of us together.<br>
-                                EPOCH '26 is more than just a Freshers' Welcome, it is the beginning of new friendships, new memories, and a new chapter in the Earth Sciences journey. From exciting games and interactive sessions to batch performances, music, laughter, and conversations, we have planned an evening where every batch gets a chance to come together, connect, and celebrate.<br>
-                                <b>And of course, the evening will end with a delicious dinner buffet!</b><br></p>
-                                <p style="font-family: 'Courier New', Courier, monospace; text-align: justify;"><i class="fa-solid fa-alarm-clock"></i> When: 2nd October 2026, 5:30 pm onwards<br>
-                                <i class="fa-solid fa-car"></i> Where: ESB 3 Auditorium, IIT Kanpur<br>
-                                <i class="fa-solid fa-shirt"></i> Dress Code: Western</p>
-                            </span>
-                            <div class="row justify-content-center w-100 mx-0" style="font-family:'Times New Roman', Times, serif; font-size: small;">
-                                Click to expand!
-                            </div>
-                        </div>
-                        <div class="col-2 show-on-expanded">
-                        </div>
-                        <div class="col-8 show-on-expanded">
-                            <div class="row justify-content-center" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
-                                EPOCH '26
-                            </div>
-                        </div>
-                        <div class="col-2 show-on-expanded d-flex justify-content-end align-items-end text-end" style="font-family: 'Times New Roman', Times, serif; font-size: small;">
-                            Click here to close!
-                        </div>
-                    </div>
-                </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <div class="row w-100 pe-3 align-items-stretch events-accordion-default">
-                        <div class="col-12 show-on-collapsed">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item my-3">
-            <h2 class="accordion-header">
-                <button class="accordion-button events-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseOne">
-                    <div class="row w-100 pe-3 align-items-stretch events-accordion-default">
-                        <div class="col-12 d-sm-none col-sm-5 col-lg-4 col-xl-3 show-on-collapsed">
-                            <img src="../assets/posters/Footprints_26.jpeg" alt="" class="img-fluid rounded">
-                        </div>
-                        <div class="col-12 col-sm-7 col-lg-8 col-xl-9 show-on-collapsed d-flex flex-column justify-content-between">
-                            <div class="row justify-content-center w-100 mx-0" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
-                                Footprints
-                            </div>
-                            <span class="my-3">
-                                <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: justify; font-size: large;">We are pleased to invite all 1st and 2nd year UG students to "Footprints", an interactive session focused on internships, research, career opportunities, applications, resumes, and interviews.<br>
-                                The session will feature student speakersm who will share their first-hand experiences, application strategies, resume tips, and interview questions. The session will also provide an overview of pathways available ahead, including branch-change opportunities, research and internship avenues, and other academic options.<br>
-                                This will also incude an interactive Q/A, giving you the opportunity to directly interact with the speakers and clarify your doubts.<br></p>
-                                <p style="font-family: 'Courier New', Courier, monospace; text-align: justify;"><i class="fa-solid fa-alarm-clock"></i> When: 24th September 2026, 6:30 pm onwards<br>
-                                <i class="fa-solid fa-car"></i> Where: ESB 3 Auditorium, IIT Kanpur<br></p>
-                            </span>
-                            <div class="row justify-content-center w-100 mx-0" style="font-family:'Times New Roman', Times, serif; font-size: small;">
-                                Click to expand!
-                            </div>
-                        </div>
-                        <div class="col-12 d-none d-sm-block col-sm-5 col-lg-4 col-xl-3 show-on-collapsed">
-                            <img src="../assets/posters/Footprints_26.jpeg" alt="" class="img-fluid rounded">
-                        </div>
-                        <div class="col-2 show-on-expanded">
-                        </div>
-                        <div class="col-8 show-on-expanded">
-                            <div class="row justify-content-center" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
-                                Footprints
-                            </div>
-                        </div>
-                        <div class="col-2 show-on-expanded d-flex justify-content-end align-items-end text-end" style="font-family: 'Times New Roman', Times, serif; font-size: small;">
-                            Click here to close!
-                        </div>
-                    </div>
-                </button>
-            </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <strong>This is the first item’s accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item my-3">
-            <h2 class="accordion-header">
-                <button class="accordion-button events-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseOne">
-                    <div class="row w-100 pe-3 align-items-stretch events-accordion-default">
-                        <div class="col-12 col-sm-5 col-lg-4 col-xl-3 show-on-collapsed">
-                            <img src="../assets/posters/Teachers_day_26.jpeg" alt="" class="img-fluid rounded">
-                        </div>
-                        <div class="col-12 col-sm-7 col-lg-8 col-xl-9 show-on-collapsed d-flex flex-column justify-content-between">
-                            <div class="row justify-content-center w-100 mx-0" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
-                                Teachers' Day
-                            </div>
-                            <span class="my-3">
-                                <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: justify; font-size: large;">It gives us great pleasure to invite you to our Teachers' Day Celebration, an evening dedicated to honouring the mentors who shape our academic and intellectual journeys.<br>
-                                The evening promises to be a warm and memorable gathering, featuring heartfelt tributes, engaging performances, and moments of appreciation for our esteemed faculty.<br>
-                                This celebration is our way of expressing gratitude to the professors and teachers who have guided us with patience and wisdom throughout our time in the Earth Sciences department. Your presence would add immense value to this occasion and help make it a fitting tribute to our teachers.<br>
-                                <b>Refreshments will be provided to all the attendees.</b><br></p>
-                                <p style="font-family: 'Courier New', Courier, monospace; text-align: justify;"><i class="fa-solid fa-alarm-clock"></i> When: 7th September 2026, 6:00 pm onwards<br>
-                                <i class="fa-solid fa-car"></i> Where: ESB 3 Auditorium, IIT Kanpur<br></p>
-                            </span>
-                            <div class="row justify-content-center w-100 mx-0" style="font-family:'Times New Roman', Times, serif; font-size: small;">
-                                Click to expand!
-                            </div>
-                        </div>
-                        <div class="col-2 show-on-expanded">
-                        </div>
-                        <div class="col-8 show-on-expanded">
-                            <div class="row justify-content-center" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
-                                Teachers' Day
-                            </div>
-                        </div>
-                        <div class="col-2 show-on-expanded d-flex justify-content-end align-items-end text-end" style="font-family: 'Times New Roman', Times, serif; font-size: small;">
-                            Click here to close!
-                        </div>
-                    </div>
-                </button>
-            </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <strong>This is the first item’s accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="image-gallery-container">
-        <div class="images">
-            <div class="image" onclick="showImage(this);">
-                <img src="../assets/gallery images/compressed_heritage_night_1.JPG" alt="">
-            </div>
-            <div class="image" onclick="showImage(this);">
-                <img src="../assets/gallery images/compressed_heritage_night_2.JPG" alt="">
-            </div>
-            <div class="image" onclick="showImage(this);">
-                <img src="../assets/gallery images/compressed_heritage_night_20.JPG" alt="">
-            </div>
-            <div class="image" onclick="showImage(this);">
-                <img src="../assets/gallery images/compressed_heritage_night_25.JPG" alt="">
-            </div>
-        </div>
-        <div class="lightbox">
-            <div class="image">
-                <img src="../assets/gallery images/compressed_heritage_night_1.JPG" alt="">
-                <div class="title">Testing</div>
-                <div class="next-btn"><i class="fa-solid fa-caret-right"></i></div>
-                <div class="previous-btn"><i class="fa-solid fa-caret-left"></i></div>
-            </div>
-            <div class="options">
-            <a href="#" class="download-btn" download><i class="fa-solid fa-arrow-down"></i></a>
-            <div class="close-btn"><i class="fa-regular fa-circle-xmark"></i></div>
-        </div>
-        </div>
-    </div>
-    <div class="announcement-card">
-    <!-- Left Side: Slanted Content Panel -->
-        <div class="announcement-content">
-            <div class="content-wrapper">
-            <span class="badge">Special Event</span>
+    <div class="announcement-banner">
+    <!-- The background container that holds the image -->
+    <div class="banner-bg"><img src="../assets/carousal_epoch26.png" alt=""></div>
+    
+    <!-- The text content aligned to the left -->
+        <div class="banner-content">
+            <p>Check the gallery for photos from </p>
             <h2>EPOCH '26</h2>
-            <p>The wait is finally over. We are delighted to invite the entire department to an evening dedicated to celebrating the spirit that brings us all together. Join us for performances, laughter, and new friendships!</p>
-            
-            <div class="event-meta">
-                <div><i class="bi bi-clock-fill"></i> Oct 2nd, 5:30 PM</div>
-                <div><i class="bi bi-geo-alt-fill"></i> ESB 3 Auditorium, IITK</div>
-            </div>
-            
-            <a href="#" class="action-btn">Register Now</a>
-            </div>
         </div>
-        
-        <!-- Right Side: The Background Visual Image -->
-        <div class="announcement-image">
-            <img src="../assets/posters/Epoch_26.png" alt="Epoch 26 Poster Asset">
+    </div>
+    <div class="col px-3 main-box mt-1"> <!--Containing the objectives, messages etc.-->
+                <p class="normal-text" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: justify; font-size: large; text-align: center;">
+                        <b>Welcome to the virtual home of the Earth Science Society @ IIT Kanpur!</b>
+                </p>
+                <p class="normal-text" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: large; text-align: justify;">
+                    The Earth Science Society at IIT Kanpur was established in 2018 with a vision to unite the department of Earth Sciences at IIT Kanpur through various cultural, academic, and sports events.
+                </p>
+                <p class="normal-text" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: large; text-align: justify;">
+                    We intend to do this by-
+                    <ul class="normal-text" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: large; text-align: justify;">
+                        <li>
+                            conducting events to bring faculties, staff, and students on the same platform for bonding.
+                        </li>
+                        <li>
+                            building an ecosystem where community members will get various opportunities to develop themselves.
+                        </li>
+                        <li>
+                            fostering a supportive and inclusive community for students and other members.
+                        </li>
+                    </ul>
+                </p>
+                <div class="row mx-2 my-1 quote-box">
+                    <p class="quote-text">
+                        "Welcome to the Earth Science Society! Here, we blend learning with a vibrant sense of community. Together, we'll delve into the fascinating world of Earth Science while celebrating camaraderie and talent through various activities. We aim to create a space where curiosity thrives, ideas flourish, and connections grow. Whether you're passionate about unravelling Earth’s mysteries, showcasing your creative side, or building friendships that last a lifetime, there’s something here for everyone. Looking forward to your enthusiastic participation!"
+                    </p>
+                    <p class="text-end quote-by">
+                        -<b>Nikki Banshal</b><br> 
+                        <i>President</i><br>
+                    </p>
+                </div>
+                <div class="row mx-2 my-1 quote-box">
+                    <p class="quote-text">
+                        "Welcome to the Earth Science Society. Let us join hands to explore the wonders of Earth Science while fostering teamwork and talent beyond classrooms through different academic and extracurricular activities like sports, cultural nights, and other engaging events. Together we will make this year enriching, exciting, and unforgettable. Looking forward to your active participation."
+                    </p>
+                    <p class="text-end quote-by">
+                        -<b>Dr Tajdarul Hassan Syed</b><br>
+                        <i>Faculty Advisor</i><br> 
+                    </p>
+                </div>
+                <div class="row mx-2 my-1 quote-box">
+                    <p class="quote-text">
+                        "Greetings,<br>
+                        I am excited to welcome you to a journey that blends curiosity, discovery, innovation and deep respect towards each other. Our goal is to cultivate an environment where knowledge thrives and ideas flow. It is our mission to create a welcoming and stimulating environment for all members to engage with each other, whether through field trips, workshops, events or discussion. ESS offers endless opportunities to grow, expand our knowledge and make lasting contributions. We hope each of you finds inspiration here and most importantly, feels empowered to share your unique perspectives. Through our collective wisdom, we can make a meaningful impact on both science and society."
+                    </p>
+                    <p class="text-end quote-by">
+                        -<b>Dr Anupam Banerjee</b><br>
+                        <i>Faculty Advisor</i><br> 
+                    </p>
+                </div>
+                <div class="row justify-content-center">
+                    <!--Containing the links to ESS social media handles-->
+                    <div class="col-12 justify-content-center">
+                        <h6 style="text-align: center; font-size: 30px;">
+                            <a href="mailto: essiitkanpur@gmail.com" target="_blank"><i class="fa-solid fa-envelope icon-1" style="color: black;"></i></a>&nbsp;
+                            <a href="https://www.linkedin.com/in/earth-science-society-6ba225256" target="_blank"><i class="fa-brands fa-linkedin icon-1" style="color: black;"></i></a>&nbsp;
+                            <a href="https://www.instagram.com/essiitk/" target="_blank"><i class="fa-brands fa-instagram icon-1" style="color: black;"></i></a>&nbsp;
+                            <a href="https://www.facebook.com/people/Ess-Iit-Kanpur-essiitk/pfbid02i9Tjm3zcxFb3zD4hRHEuQrwdVbcvkWRXpENx7HVGbAxgDWc3cUdCS7Gmkev5Dq9Ll/?ref=xav_ig_profile_web" target="_blank"><i class="fa-brands fa-facebook icon-1" style="color: black;"></i></a>&nbsp;
+                        </h6>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mt-2 justify-content-center"> <!--containing the Updates tab-->
+                    <h4 style="text-align: center; background-color: black; color: white; font-family: fantasy;">
+                        Updates
+                    </h4>
+                    <div class="scrolling-wrapper">
+                        <!--Images preferrably of (width:height) 4:5 (portrait)-->
+                        <!--Just copy-paste individual post cards and edit the details to add new updates-->
+                        <div class="post-card"> <!--One meme, ideally to be updated every week-->
+                            <img class="meme-image" src="../assets/motw.jpg" style="height: 400px; width: auto;" alt="">
+                        </div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/share/p/BAN_9ZwoFd" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 12.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/share/p/BAM1I_ppzG" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 11.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/p/DFQRFpittPd/?igsh=MW00NXpmNnlhM3I0cg==" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 10.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/p/DFNmkRSNCK4/?igsh=ZnYzYWViYWNjNGd5" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 09.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/reel/DAY5vHqOg0J/?igsh=MXI4YzJzbTA5NDk0cw==" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 07.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/p/C_szIRFIAVX/?igsh=MWNueDhyejQ2c2szcA==" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 08.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/p/C5Fhb3Exlyl/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 01.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/p/C0MIdaZIZvy/?igsh=N3RmejU2eDdxMGNh" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 02.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/p/C0MH_TLocYg/?igsh=b2k0d3ppMW5yM2p6" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 03.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="post-card">
+                            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7086263155923857408/" target="_blank">
+                                <img class="update-image" src="../assets/media posts/linkedin 01.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/p/CnpojQbDt59/?igsh=MXEzdTVma3h0ZmFxNA==" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 04.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="post-card">
+                            <a class="media-post-hover" href="https://www.instagram.com/p/CnpoDZbD_7U/?igsh=cThqZW94dXhzb2ww" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 05.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="post-card">
+                            <a class="media-post-hover" href="https://www.instagram.com/p/CiH9-jNtYFh/?igsh=MWZxeTVrcjUzajY3dw==" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 06.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -745,7 +787,7 @@
         <div class="row my-2 justify-content-center">
             <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
                 <div class="image-container">
-                    <img src="../assets/team/T-H-Syed (new).png">
+                    <img data-src="../assets/team/T-H-Syed (new).png">
                     <div class="overlay-text" style="text-align: center;">
                         Dr Tajdarul Hassan Syed
                     </div>
@@ -753,7 +795,7 @@
             </div>
             <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
                 <div class="image-container">
-                    <img src="../assets/team/A Banerjee (new).png">
+                    <img data-src="../assets/team/A Banerjee (new).png">
                     <div class="overlay-text" style="text-align: center;">
                         Dr Anupam Banerjee
                     </div>
@@ -768,7 +810,7 @@
         <div class="row my-2 justify-content-center"> <!--Student core team member details-->
             <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
                 <div class="image-container">
-                    <img src="../assets/team/Nikki_Banshal.png">
+                    <img data-src="../assets/team/Nikki_Banshal.png">
                     <div class="overlay-text" style="text-align: center;">
                         Nikki Banshal<br>
                         <span class="team-des">President</span>
@@ -777,7 +819,7 @@
             </div>
             <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
                 <div class="image-container">
-                    <img src="../assets/team/anupam_dey.png">
+                    <img data-src="../assets/team/anupam_dey.png">
                     <div class="overlay-text" style="text-align: center;">
                         Anupam Dey<br>
                         <span class="team-des">Vice-president</span>
@@ -786,7 +828,7 @@
             </div>
             <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
                 <div class="image-container">
-                    <img src="../assets/team/Harun.png">
+                    <img data-src="../assets/team/Harun.png">
                     <div class="overlay-text" style="text-align: center;">
                         Md. Harun Rashid<br>
                         <span class="team-des">Secretary</span>
@@ -795,7 +837,7 @@
             </div>
             <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
                 <div class="image-container">
-                    <img src="../assets/team/Anupriya.png">
+                    <img data-src="../assets/team/Anupriya.png">
                     <div class="overlay-text" style="text-align: center;">
                         Anupriya Raj<br>
                         <span class="team-des">Treasurer</span>
@@ -804,7 +846,7 @@
             </div>
             <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
                 <div class="image-container">
-                    <img src="../assets/team/Himani.png">
+                    <img data-src="../assets/team/Himani.png">
                     <div class="overlay-text" style="text-align: center;">
                         Himani<br>
                         <span class="team-des">Cultural Secretary</span>
@@ -813,7 +855,7 @@
             </div>
             <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
                 <div class="image-container">
-                    <img src="../assets/team/Shivani_Patel.png">
+                    <img data-src="../assets/team/Shivani_Patel.png">
                     <div class="overlay-text" style="text-align: center;">
                         Shivani Patel<br>
                         <span class="team-des">Cultural Secretary</span>
@@ -822,7 +864,7 @@
             </div>
             <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
                 <div class="image-container">
-                    <img src="../assets/team/Arpita_Verma.png">
+                    <img data-src="../assets/team/Arpita_Verma.png">
                     <div class="overlay-text" style="text-align: center;">
                         Arpita Verma<br>
                         <span class="team-des">Sports Secretary</span>
@@ -831,7 +873,7 @@
             </div>
             <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
                 <div class="image-container">
-                    <img src="../assets/team/Sneha.png">
+                    <img data-src="../assets/team/Sneha.png">
                     <div class="overlay-text" style="text-align: center;">
                         Sneha<br>
                         <span class="team-des">Sports Secretary</span>
@@ -840,7 +882,7 @@
             </div>
             <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
                 <div class="image-container">
-                    <img src="../assets/team/Kali_Aravind.png">
+                    <img data-src="../assets/team/Kali_Aravind.png">
                     <div class="overlay-text" style="text-align: center;">
                         Kali Aravind<br>
                         <span class="team-des">Creative, Media, &<br>
@@ -850,7 +892,7 @@
             </div>
             <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
                 <div class="image-container">
-                    <img src="../assets/team/aaditya_mittal.png">
+                    <img data-src="../assets/team/aaditya_mittal.png">
                     <div class="overlay-text" style="text-align: center;">
                         Aaditya Mittal<br>
                         <span class="team-des">Creative, Media, &<br>
@@ -990,13 +1032,548 @@
 </div>
 
 <div id="Events" class="tabcontent">
-    <h3>Events</h3>
-    <p>This is the Events page.</p>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item my-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button events-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    <div class="row w-100 pe-3 align-items-stretch events-accordion-default">
+                        <div class="col-12 col-sm-5 col-lg-4 col-xl-3 show-on-collapsed">
+                            <img data-src="../assets/posters/Epoch_26.png" alt="" class="img-fluid rounded">
+                        </div>
+                        <div class="col-12 col-sm-7 col-lg-8 col-xl-9 show-on-collapsed d-flex flex-column justify-content-between">
+                            <div class="row justify-content-center w-100 mx-0" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                                EPOCH '26
+                            </div>
+                            <span class="my-3">
+                                <h5 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: bolder;">The wait is finally over. EPOCH '26 is here!</h5><br>
+                                <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: justify; font-size: large;">We are delighted to invite the entire department to an evening dedicated to welcoming the newest members of our family and celebrating the spirit that brings all of us together.<br>
+                                EPOCH '26 is more than just a Freshers' Welcome, it is the beginning of new friendships, new memories, and a new chapter in the Earth Sciences journey. From exciting games and interactive sessions to batch performances, music, laughter, and conversations, we have planned an evening where every batch gets a chance to come together, connect, and celebrate.<br>
+                                <b>And of course, the evening will end with a delicious dinner buffet!</b><br></p>
+                                <p style="font-family: 'Courier New', Courier, monospace; text-align: justify;"><i class="fa-solid fa-alarm-clock"></i> When: 2nd October 2026, 5:30 pm onwards<br>
+                                <i class="fa-solid fa-car"></i> Where: ESB 3 Auditorium, IIT Kanpur<br>
+                                <i class="fa-solid fa-shirt"></i> Dress Code: Western</p>
+                            </span>
+                            <div class="row justify-content-center w-100 mx-0" style="font-family:'Times New Roman', Times, serif; font-size: small;">
+                                Click to expand!
+                            </div>
+                        </div>
+                        <div class="col-2 show-on-expanded">
+                        </div>
+                        <div class="col-8 show-on-expanded">
+                            <div class="row justify-content-center" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                                EPOCH '26
+                            </div>
+                        </div>
+                        <div class="col-2 show-on-expanded d-flex justify-content-end align-items-end text-end" style="font-family: 'Times New Roman', Times, serif; font-size: small;">
+                            Click here to close!
+                        </div>
+                    </div>
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="image-gallery-container">
+                                <div class="images">
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_29.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_32.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_37.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_56.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_78.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_93.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_103.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_138.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_145.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_185.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_201.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_212.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_220.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_224.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_218.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_228.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item my-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button events-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseOne">
+                    <div class="row w-100 pe-3 align-items-stretch events-accordion-default">
+                        <div class="col-12 d-sm-none col-sm-5 col-lg-4 col-xl-3 show-on-collapsed">
+                            <img data-src="../assets/posters/Footprints_26.jpeg" alt="" class="img-fluid rounded">
+                        </div>
+                        <div class="col-12 col-sm-7 col-lg-8 col-xl-9 show-on-collapsed d-flex flex-column justify-content-between">
+                            <div class="row justify-content-center w-100 mx-0" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                                Footprints
+                            </div>
+                            <span class="my-3">
+                                <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: justify; font-size: large;">We are pleased to invite all 1st and 2nd year UG students to "Footprints", an interactive session focused on internships, research, career opportunities, applications, resumes, and interviews.<br>
+                                The session will feature student speakersm who will share their first-hand experiences, application strategies, resume tips, and interview questions. The session will also provide an overview of pathways available ahead, including branch-change opportunities, research and internship avenues, and other academic options.<br>
+                                This will also incude an interactive Q/A, giving you the opportunity to directly interact with the speakers and clarify your doubts.<br></p>
+                                <p style="font-family: 'Courier New', Courier, monospace; text-align: justify;"><i class="fa-solid fa-alarm-clock"></i> When: 24th September 2026, 6:30 pm onwards<br>
+                                <i class="fa-solid fa-car"></i> Where: ESB 3 Auditorium, IIT Kanpur<br></p>
+                            </span>
+                            <div class="row justify-content-center w-100 mx-0" style="font-family:'Times New Roman', Times, serif; font-size: small;">
+                                Click to expand!
+                            </div>
+                        </div>
+                        <div class="col-12 d-none d-sm-block col-sm-5 col-lg-4 col-xl-3 show-on-collapsed">
+                            <img data-src="../assets/posters/Footprints_26.jpeg" alt="" class="img-fluid rounded">
+                        </div>
+                        <div class="col-2 show-on-expanded">
+                        </div>
+                        <div class="col-8 show-on-expanded">
+                            <div class="row justify-content-center" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                                Footprints
+                            </div>
+                        </div>
+                        <div class="col-2 show-on-expanded d-flex justify-content-end align-items-end text-end" style="font-family: 'Times New Roman', Times, serif; font-size: small;">
+                            Click here to close!
+                        </div>
+                    </div>
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="image-gallery-container">
+                                <div class="images">
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/Footprints_01.JPG" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/Footprints_09.JPG" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/Footprints_10.JPG" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/Footprints_13.JPG" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/Footprints_15.JPG" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/Footprints_27.JPG" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/Footprints_32.JPG" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/Footprints_48.JPG" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item my-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button events-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseOne">
+                    <div class="row w-100 pe-3 align-items-stretch events-accordion-default">
+                        <div class="col-12 col-sm-5 col-lg-4 col-xl-3 show-on-collapsed">
+                            <img data-src="../assets/posters/Teachers_day_26.jpeg" alt="" class="img-fluid rounded">
+                        </div>
+                        <div class="col-12 col-sm-7 col-lg-8 col-xl-9 show-on-collapsed d-flex flex-column justify-content-between">
+                            <div class="row justify-content-center w-100 mx-0" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                                Teachers' Day
+                            </div>
+                            <span class="my-3">
+                                <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: justify; font-size: large;">It gives us great pleasure to invite you to our Teachers' Day Celebration, an evening dedicated to honouring the mentors who shape our academic and intellectual journeys.<br>
+                                The evening promises to be a warm and memorable gathering, featuring heartfelt tributes, engaging performances, and moments of appreciation for our esteemed faculty.<br>
+                                This celebration is our way of expressing gratitude to the professors and teachers who have guided us with patience and wisdom throughout our time in the Earth Sciences department. Your presence would add immense value to this occasion and help make it a fitting tribute to our teachers.<br>
+                                <b>Refreshments will be provided to all the attendees.</b><br></p>
+                                <p style="font-family: 'Courier New', Courier, monospace; text-align: justify;"><i class="fa-solid fa-alarm-clock"></i> When: 7th September 2026, 6:00 pm onwards<br>
+                                <i class="fa-solid fa-car"></i> Where: ESB 3 Auditorium, IIT Kanpur<br></p>
+                            </span>
+                            <div class="row justify-content-center w-100 mx-0" style="font-family:'Times New Roman', Times, serif; font-size: small;">
+                                Click to expand!
+                            </div>
+                        </div>
+                        <div class="col-2 show-on-expanded">
+                        </div>
+                        <div class="col-8 show-on-expanded">
+                            <div class="row justify-content-center" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                                Teachers' Day
+                            </div>
+                        </div>
+                        <div class="col-2 show-on-expanded d-flex justify-content-end align-items-end text-end" style="font-family: 'Times New Roman', Times, serif; font-size: small;">
+                            Click here to close!
+                        </div>
+                    </div>
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="image-gallery-container">
+                                <div class="images">
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_09.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_01.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_03.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_27.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_54.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_55.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_56.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_59.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_67.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_75.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_72.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_106.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="Gallery" class="tabcontent">
-    <h3>Gallery</h3>
-    <p>This is the Gallery page.</p>
+    <div class="row my-2">
+        <div class="col my-2">
+            <div class="row justify-content-center w-100 mx-0" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                EPOCH '26
+            </div>
+            <div class="row my-2">
+                <div class="image-gallery-container">
+                    <div class="images1">
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_21.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_28.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_30.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_32.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_34.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_37.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_40.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_41.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_43.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_45.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_49.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_50.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_52.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_53.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_54.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_57.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_60.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_61.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_65.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_68.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_92.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_98.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_140.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_147.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_179.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_215.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_217.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_220.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_224.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_229.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col my-2">
+            <div class="row justify-content-center w-100 mx-0" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                Footprints
+            </div>
+            <div class="row my-2">
+                <div class="image-gallery-container">
+                    <div class="images1">
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_04.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_06.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_08.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_10.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_11.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_13.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_15.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_18.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_20.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_22.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_24.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_26.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_27.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_29.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_32.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_33.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_38.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_42.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_44.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_48.JPG" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col my-2">
+            <div class="row justify-content-center w-100 mx-0" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                Teachers' Day
+            </div>
+            <div class="row my-2">
+                <div class="image-gallery-container">
+                    <div class="images1">
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_01.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_02.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_04.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_08.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_52.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_54.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_55.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_56.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_58.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_61.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_64.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_67.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_69.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_73.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_75.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_77.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_79.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_81.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_83.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_85.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_87.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_89.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_92.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_105.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_107.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="image-gallery-container">
+    <div class="lightbox">
+        <div class="image">
+            <img src="../assets/gallery images/compressed_heritage_night_1.JPG" alt="">
+            <div class="next-btn"><i class="fa-solid fa-caret-right"></i></div>
+            <div class="previous-btn"><i class="fa-solid fa-caret-left"></i></div>
+        </div>
+                <div class="options">
+                    <a href="#" class="download-btn" download><i class="fa-solid fa-arrow-down"></i></a>
+                <div class="close-btn"><i class="fa-regular fa-circle-xmark"></i></div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!--This page generally consists of repeating elements (text, set of images, and a link to the full album)-->
@@ -1027,41 +1604,100 @@
     document.getElementById("defaultOpen").click();
 
     const lightbox = document.querySelector(".image-gallery-container .lightbox");
-    const lightboxImage = document.querySelector(".image-gallery-container .lightbox img");
-    const lightboxTitle = document.querySelector(".image-gallery-container .lightbox .title");
-    const downloadBtn = document.querySelector(".image-gallery-container .download-btn");
-    const nextBtn = document.querySelector(".image-gallery-container .next-btn");
-    const previousBtn = document.querySelector(".image-gallery-container .previous-btn");
-    const closeBtn = document.querySelector(".image-gallery-container .close-btn");
+const lightboxImage = document.querySelector(".image-gallery-container .lightbox img");
+const lightboxTitle = document.querySelector(".image-gallery-container .lightbox .title");
+const downloadBtn = document.querySelector(".image-gallery-container .download-btn");
+const nextBtn = document.querySelector(".image-gallery-container .next-btn");
+const previousBtn = document.querySelector(".image-gallery-container .previous-btn");
+const closeBtn = document.querySelector(".image-gallery-container .close-btn");
 
-    let currentImage = "";
+let currentImage = "";
 
-    const showImage = (data) => {
-        currentImage = data;
-        lightbox.classList.add("active");
-        let image = data.querySelector("img");
+const showImage = (data) => {
+    currentImage = data;
+    lightbox.classList.add("active");
+    let image = data.querySelector("img");
 
-        lightboxImage.src = image.src;
-        downloadBtn.href = image.src;
-    };
+    lightboxImage.src = image.src;
+    downloadBtn.href = image.src;
+};
 
-    closeBtn.addEventListener("click", () => {
+// Closes lightbox when clicking the X button
+closeBtn.addEventListener("click", () => {
+    lightbox.classList.remove("active");
+});
+
+/* 
+   FIX 1: Close lightbox when clicking anywhere OUTSIDE the active image structure.
+   It checks if the clicked target is the lightbox wrapper itself or navigation controls,
+   but NOT the core image display element.
+*/
+lightbox.addEventListener("click", (e) => {
+    // If the click happened on the image canvas itself, do nothing
+    if (e.target === lightboxImage) return;
+    
+    // If you have titles or specific text blocks inside the lightbox you want to protect from clicks,
+    // you can add them here (e.g., e.target === lightboxTitle).
+    // Otherwise, clicking any backdrop space closes the window.
+    if (e.target !== nextBtn && e.target !== previousBtn && e.target !== downloadBtn) {
         lightbox.classList.remove("active");
-    });
+    }
+});
 
-    nextBtn.addEventListener("click", () => {
-        if (currentImage.nextElementSibling) {
-            currentImage = currentImage.nextElementSibling;
-            showImage(currentImage);
-        }
-    });
+/* 
+   FIX 2: Infinite loop navigation logic.
+   If no sibling element exists, it grabs the parent and jumps to the extreme end.
+*/
+nextBtn.addEventListener("click", (e) => {
+    e.stopPropagation(); 
+    window.getSelection().removeAllRanges(); // Clears any accidental double-click selections instantly
+    
+    if (currentImage.nextElementSibling) {
+        currentImage = currentImage.nextElementSibling;
+    } else {
+        currentImage = currentImage.parentElement.firstElementChild;
+    }
+    showImage(currentImage);
+});
 
-    previousBtn.addEventListener("click", () => {
-        if (currentImage.previousElementSibling) {
-            currentImage = currentImage.previousElementSibling;
-            showImage(currentImage);
-        }
+previousBtn.addEventListener("click", (e) => {
+    e.stopPropagation(); 
+    window.getSelection().removeAllRanges(); // Clears any accidental double-click selections instantly
+    
+    if (currentImage.previousElementSibling) {
+        currentImage = currentImage.previousElementSibling;
+    } else {
+        currentImage = currentImage.parentElement.lastElementChild;
+    }
+    showImage(currentImage);
+});
+
+    function openPage(evt, pageName) {
+        // 1. Hide all tab contents (Your existing code logic)
+        const tabcontent = document.getElementsByClassName("tabcontent");
+        for (let i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+    }
+
+    // 2. Remove "active" class from all buttons (Your existing code logic)
+    const tablinks = document.getElementsByClassName("tablinks");
+        for (let i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // 3. Show the current tab and mark the button active
+    const currentPage = document.getElementById(pageName);
+        currentPage.style.display = "block";
+        if (evt) evt.currentTarget.className += " active";
+
+    // 4. LAZY LOADING LOGIC: Find and load images only once
+    const lazyImages = currentPage.querySelectorAll("img[data-src]");
+    
+    lazyImages.forEach(img => {
+        img.src = img.getAttribute("data-src"); // Swaps the path to the real source
+        img.removeAttribute("data-src");       // Prevents this logic from running again next click
     });
+}
 </script>
 
 <!--footer-->

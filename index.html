@@ -1,53 +1,562 @@
-<html lang="en"> <!--Defining the basics of the page up until /html close, essential format--> 
+<html lang="en">
 <head>
     <title>Earth Science Society</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="icon" type="image/x-icon" href="assets/theme/ESS_logo.png">
+    <link rel="icon" type="image/x-icon" href="../assets/theme/ESS_logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="styles.css"> <!--Linking to the css style file containing most of the css elements of the website -->
-    <link rel="stylesheet" type="text/css" href="calendar.css"> <!--Linking to the calender css style file-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
-    <link href="https://fonts.cdnfonts.com/css/plantin-mt-pro?styles=66100" rel="stylesheet"> <!-- Link to one of the font-families used in the page/website -->
-    <link href="https://db.onlinewebfonts.com/c/fc609eb62c0de5abdda2d091abaed228?family=Plantin+Infant+MT+Std+Bold" rel="stylesheet"> <!-- Link to one of the font-families used in the page/website -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> <!-- Link to some of the icons used throughout the website -->
-    <script src="index.js" defer></script> <!-- Link to a javascript file (doesn't contain anything significant) -->
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+    <link href="https://fonts.cdnfonts.com/css/plantin-mt-pro?styles=66100" rel="stylesheet">
+    <link href="https://db.onlinewebfonts.com/c/fc609eb62c0de5abdda2d091abaed228?family=Plantin+Infant+MT+Std+Bold" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <style>
-    /* This part defines the overall layout of the page, the width, height, margins, background-style, background-image etc. */
     body, html {
-        max-width: 2000px; /* Maximum width of the page irrespective of the width of the screen */
+        max-width: 2000px;
         margin: auto;
     }
-    
-    .bg {
-      /* The image used as a background for the entire page */
-      background-image: url(assets/pexels-ethan-sees-2534617.jpg);
-    
-      /* Full height */
-      height: 100%; 
-    
-      /* Center and scale the background-image nicely */
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
+
+    .image {
+    cursor: pointer;
+    transition: 0.3s;
+    opacity: 1;
     }
+
+    .image:hover {opacity: 0.9;}
+
+    #image-viewer {
+        display: none;
+        z-index: 999;
+    }
+
+    #image-viewer div {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.7);
+        overflow: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #image-viewer div img {
+        display: block;
+        max-height: 65%;
+        max-width: 65%;
+        animation: showImage 0.5s;
+        opacity: 1;
+    }
+
+    @keyframes  showImage {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+    }
+
+    #close {
+        position: absolute;
+        bottom: 60px;
+        color: white;
+        font-size: 50px;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    #close:hover, #close:focus {
+        opacity: 0.8;
+    }
+
+    @media  screen and (max-width: 700px) {
+        .viewer {
+            width: 100%;
+        }
+    }
+
+    .tab {
+        overflow: hidden;
+        background-color: rgba(255,255,255,0.2);
+    }
+
+    .tab button {
+        background-color: inherit;
+        border: 1px solid rgba(0,0,0,0.1);
+        outline: none;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .tab button:hover {
+        background-color: rgba(255,255,255,0.7);
+        color: black;
+    }
+
+    .tab button.active {
+        background-color: rgba(255,255,255,0.5);
+    }
+
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid rgba(255,255,255,0.3);
+        border-top: none;
+    }
+
+    .image-container {
+        position: relative;
+        display: block; /* Keeps the container the exact size of the image */
+        max-width: 100%;
+    }
+
+    .image-container img {
+        display: block;
+        width: 100%; /* Makes the image responsive to the container */
+        height: auto;
+    }
+
+    .overlay-text {
+        position: absolute;
+        color: black; /* Makes text visible over dark images */
+        font-family: sans-serif;
+        font-size: 0.8rem;
+        font-weight: bold;
+        text-align: center;
+
+        border-radius: 15px;
+        padding: 5px 15px;
+        background-color: rgba(255, 255, 255, 0.7);
+        
+        /* Choose one of the positioning options below */
+        bottom: 15px;       /* Pushes the text 20px up from the very bottom edge */
+        left: 50%;          /* Moves the starting point to the middle of the image */
+        transform: translateX(-50%); /* Shifts the text back to perfectly align its center */
+        
+        white-space: nowrap; /* Prevents text from awkwardly wrapping on small screens */
+    }
+
+    .team-des{
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-style: italic;
+        font-size: 0.8rem;
+        color: blue;
+    }
+
+    @media  screen and (min-width: 500px) {
+        .overlay-text {
+            font-size: 0.9rem;
+        }
+        .team-des {
+            font-size: 0.9rem;
+        }
+    }
+
+    @media  screen and (min-width: 1100px) {
+        .overlay-text {
+            font-size: 1.1rem;
+        }
+        .team-des {
+            font-size: 1.1rem;
+        }
+    }
+
+    @media  screen and (min-width: 1300px) {
+        .overlay-text {
+            font-size: 1.3rem;
+        }
+        .team-des {
+            font-size: 1.3rem;
+        }
+    }
+
+    .accordion-button:focus {
+        box-shadow: none !important;
+        border-color: rgba(0,0,0,0.125);
+    }
+
+    .tablinks {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: large;
+    }
+
+    .section-head {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: x-large;
+        color: black;
+        font-weight: bold;
+    }
+
+    @media screen and (min-width: 1500px) {
+        .section-head {
+            font-size: xx-large;
+        }
+    }
+
+    p {
+        text-align: justify; /* Keeps your text justified */
+        
+        /* Crucial: Enables standard word hyphenation breaking rules */
+        -webkit-hyphens: auto; /* Required for Safari / older Chrome */
+        -ms-hyphens: auto;     /* Required for older IE/Edge versions */
+        hyphens: auto;         /* Standard rule for modern browsers */
+    }
+
+    .accordion-button img {
+        max-width: 100%; /* Prevents the image from overflowing out of the col-3 boundaries */
+        height: auto;    /* Retains the original proportions */
+        display: block;
+    }
+
+    .accordion-button.collapsed .show-on-expanded {
+        display: none !important;
+    }
+
+    /* Hide the collapsed view elements while the accordion is open */
+    .accordion-button:not(.collapsed) .show-on-collapsed {
+        display: none !important;
+    }
+
+    .accordion-button.events-accordion,
+    .accordion-button.events-accordion:not(.collapsed) {
+        background-color: rgba(255, 255, 255, 0.4) !important; /* Forces 20% transparent white */
+        color: inherit; /* Keeps your original text color from changing when expanded */
+    }
+
+    /* 2. Target the expanding body layout panel */
+    .accordion-collapse {
+        background-color: rgba(255, 255, 255, 0.4) !important;
+    }
+
+    .accordion-item {
+        background-color: transparent !important; /* Removes the default crisp white background box wrapper */
+        border: 1px solid rgba(255, 255, 255, 0.4) !important; /* Optional: Soft transparent borders to define the shape */
+    }
+
+    .image-gallery-container {
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    .image-gallery-container .images {
+        max-width: 900px;
+        display: grid;
+        margin: 0 auto;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 8px;
+    }
+
+
+
+    @media (min-width: 768px) {
+        .image-gallery-container .images {
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        }
+    }
+
+    @media (min-width: 1400px) {
+        .image-gallery-container .images {
+            max-width: 1200px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        }
+    }
+
+    .image-gallery-container .images .image {
+        cursor: pointer;
+    }
+
+    .image-gallery-container .images img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .image-gallery-container .images1 {
+        max-width: 1400px;
+        display: grid;
+        margin: 0 auto;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 8px;
+    }
+
+    @media (min-width: 790px) {
+        .image-gallery-container .images1 {
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        }
+    }
+
+    @media (min-width: 1060px) {
+        .image-gallery-container .images1 {
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        }
+    }
+
+    .image-gallery-container .images1 .image {
+        cursor: pointer;
+    }
+
+    .image-gallery-container .images1 img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .image-gallery-container .lightbox {
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none;     /* IE 10 and IE 10+ */
+        user-select: none;         /* Standard syntax (Chrome, Firefox, Edge, Opera) */
+        position: fixed;
+        top: -100%;
+        left: 0;
+        height: 100vh;
+        width: 100%;
+        background: rgba(0,0,0,0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 400ms;
+    }
+
+    .image-gallery-container .lightbox.active {
+        top: 0;
+
+    }
+
+    .image-gallery-container .lightbox img {
+        max-width: 80vw;
+        max-height: 80vh;
+        border-radius: 10px;
+        border: 10px solid white;
+    }
+
+    .image-gallery-container .lightbox .image {
+        position: relative;
+    }
+
+    .image-gallery-container .lightbox .next-btn, .image-gallery-container .lightbox .previous-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 24px;
+        padding: 8px 16px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 16px -4px rgba(0,0,0,0.4);
+        cursor: pointer;
+    }
+
+    .image-gallery-container .lightbox .next-btn {
+        right: -20px;
+    }
+
+    .image-gallery-container .lightbox .previous-btn {
+        left: -20px;
+    }
+
+    @media (max-wifth: 900px) {
+        .image-gallery-container .lightbox .img {
+            width: 90vw;
+            object-fit: cover;
+        }
+
+        .image.image-gallery-container .lightbox .next-btn {
+            right: -10px;
+        }
+
+        .image.image-gallery-container .lightbox .previous-btn {
+            left: -10px;
+        }
+    }
+
+    .image-gallery-container .lightbox .options {
+        position: fixed;
+        top: 32px;
+        right: 32px;
+        background: white;
+        display: none;
+        align-items: center;
+        font-size: 28px;
+        padding: 6px 24px;
+        border-radius: 20px;
+        box-shadow: 0 4px 16px -4px rgba(0,0,0,0.4);
+    }
+
+    .image-gallery-container .lightbox.active .options {
+        display: flex;
+    }
+
+    .image-gallery-container .lightbox .close-btn {
+        margin-left: 20px;
+        cursor: pointer;
+    }
+
+    .image-gallery-container .lightbox .download-btn {
+        color: black;
+        font-size: 24px;
+    }
+
+    .announcement-banner {
+    --banner-ratio: 3 / 1;
+    --text-color: #ffffff;
+    --accent-color: #007bff;
+    
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--banner-ratio);
+    overflow: hidden;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    box-sizing: border-box;
+    container-type: inline-size;
+    }
+
+    .announcement-banner * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    }
+
+    /* 1. Underlying image container spans full canvas */
+    .announcement-banner .banner-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    }
+
+    .announcement-banner .banner-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill; 
+    display: block;
+    }
+
+    /* 2. Text overlay layer with a solid black background */
+    .announcement-banner .banner-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 30%; /* Controls how far across the banner the black block extends */
+    z-index: 2; /* Sits directly on top of the image */
+    
+    /* CRITICAL CHANGE: Added solid black background overlay */
+    background-color: #000000; 
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 5%;
+    color: var(--text-color);
+    font-size: 2.2cqw; 
+    }
+
+    /* Typography elements scaling safely */
+    .announcement-banner .banner-content h2 {
+    font-size: 1.8em; 
+    margin-bottom: 0.2em;
+    line-height: 1.1;
+    font-weight: 700;
+    }
+
+    .announcement-banner .banner-content p {
+    font-size: 0.9em;
+    margin-bottom: 0.8em;
+    line-height: 1.3;
+    opacity: 0.9;
+    }
+
+    /* Action Button */
+    .announcement-banner .banner-btn {
+    display: inline-block;
+    padding: 0.4em 1em;
+    font-size: 0.8em;
+    font-weight: 600;
+    color: #fff;
+    background-color: var(--accent-color);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+    }
+
+    .announcement-banner .banner-btn:hover {
+    background-color: #0056b3;
+    }
+
+    .main-box{
+    background: rgba(248, 249, 250, 0.5) ;
+    }
+
+    .normal-text{
+        font-family: 'Times New Roman', Times, serif;
+        font-style: normal;
+        color: black;
+        font-size: 20px;
+        text-align: justify;
+    }
+
+    .quote-box{
+        background-color: rgba(248, 249, 250, 0.8);
+    }
+
+    .quote-text{
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: large;
+        font-style: italic;
+        text-align: justify;
+        color: black;
+    }
+
+    .poster{
+        height: 450px;
+        width: auto;
+    }
+
+    @media only screen and (min-width: 1700px) { /*define the behaviour of an html element at a particular screen size*/
+        .poster{
+            height: 550px;
+        }
+    }
+
+    @media only screen and (max-width: 800px) {
+        .poster{
+            height: 250px;
+        }
+    }
+
+    .quote-by{
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 20px;
+        color: black;
+        font-weight: bolder;
+    }
+
 </style>
-<body>
+
+
+<body style= "background-color: #BDDDFC">
+    
+    <!--<script src="../gallery-images.js"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+    <script src="https://kit.fontawesome.com/7cf001c976.js" crossorigin="anonymous"></script>
 </body>
 </html>
 
 <!--header-->
-<div class="row justify-content-center" style="background-image: url(assets/pexels-quang-nguyen-vinh-2649403.jpg); background-position: center; background-size: cover; margin: auto; margin-bottom: 1px;">
+<div class="row justify-content-center" style="background-image: url(../assets/pexels-quang-nguyen-vinh-2649403.jpg); background-position: center; background-size: cover; margin: auto;">
     <div class="col-2 py-1 d-none d-lg-block">
         <div class="container">
-            <img src="assets/ESS_logo.png" alt="" class="logos"> <!--ESS logo-->
+            <img src="../assets/ESS_logo.png" alt="" class="logos">
         </div>
     </div>
-    <div class="col justify-content-center"> <!--Text for the header-->
+    <div class="col my-4 justify-content-center">
         <div class="row justify-content-center">
             <h1 style="text-align: center; font-family: Georgia, 'Times New Roman', Times, serif; color: white;">
                 <b>EARTH SCIENCE SOCIETY</b>
@@ -58,149 +567,40 @@
                 INDIAN INSTITUTE OF TECHNOLOGY KANPUR
             </h4>
         </div>
-        <div class="row justify-content-center"> <!--containing the navigation bar, style elements onmouseover/onmouseout control the behaviour of the elments upon hover-->
-            <nav class="navbar navbar-light navbar-expand-md">
-                <a href="index.html" class="navbar-brand mx-3 h1 d-md-none">
-                    <i class="fa-solid fa-house-chimney" style="color: white;"></i>
-                </a>
-                <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" class="mx-3 navbar-toggler" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fa-solid fa-bars" style="color: white;"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav"> <!--navbarNav is a variable to be used in the data-target, check bootstrap's navbar page for more details-->
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item active" style="padding-left: 40px; padding-right: 40px;">
-                            <a href="index.html" class="nav-link navbar-active navbar-links" onmouseover="this.style.color='greenyellow';" onmouseout="this.style.color='greenyellow';" style="color: greenyellow;">
-                                <b>Home</b>
-                            </a>
-                        </li>
-                        <li class="nav-item" style="padding-left: 40px; padding-right: 40px;">
-                            <a href="pages/team.html" onmouseover="this.style.color='greenyellow';" onmouseout="this.style.color='white';" class="nav-link navbar-links" style="color: white;">
-                                <b>Team</b>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown" style="padding-left: 40px; padding-right: 40px;"> <!--A dropdown menu containing the individual events pages-->
-                            <a class="nav-link navbar-links dropdown-toggle" href="#" onmouseover="this.style.color='greenyellow';" onmouseout="this.style.color='white';" style="color: white;" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                              <b>Events</b>
-                            </a>
-                            <ul class="dropdown-menu" style="background-color: rgba(255, 255, 255, 1); font-family: 'Times New Roman', Times, serif; font-size: 16px; color: black;" aria-labelledby="navbarDropdown">
-                              <li><a class="dropdown-item" href="pages/events_main.html">All Events</a></li>
-                              <li><hr class="dropdown-divider"></li>
-                              <li><a class="dropdown-item" href="subpages/teachers-day.html">Teacher's Day '24</a></li>
-                              <li><a class="dropdown-item" href="subpages/heritage-day.html">Heritage Night '25</a></li>
-                              <li><a class="dropdown-item" href="subpages/sports-day.html">Sports Meet '25</a></li>
-                              <li><a class="dropdown-item" href="subpages/epoch-25.html">Epoch '25</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item" style="padding-left: 40px; padding-right: 40px;">
-                            <a href="pages/gallery.html" onmouseover="this.style.color='greenyellow';" onmouseout="this.style.color='white';" class="nav-link navbar-links" style="color: white;">
-                                <b>Gallery</b>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
     </div>
     <div class="col-2 py-1 d-none d-lg-block">
         <div class="container">
-            <img src="assets/IITK_logo.png" alt="" class="logos">
+            <img src="../assets/IITK_logo.png" alt="" class="logos">
         </div>
     </div>
-</div>
-<!--add "has-bg-img" to class incase of a background image-->
-<!--add this to the division <img class="" src="...png" alt="...">-->
-
-<!--carousel-->
-<!--IMPORTANT: edit all images to (width:height) 3:1 landscape dimension, use any editing softwares like Adobe Illustrator, CORELDraw etc. to ensure the dimension of the images-->
-<!--Images not in the specified format might get distorted at different screensizes or might cause the carousal to display weird behaviour-->
-<div class="row justify-content-center" style="margin-bottom: 1px;">
-    <div class="container-lg justify-content-center">
-        <div id="ess-carousel" class="carousel slide" data-bs-ride="carousel" data-bs-slide="false">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#ess-carousel" data-bs-slide-to="0" class="active bg-dark" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#ess-carousel" data-bs-slide-to="1" class="bg-dark" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#ess-carousel" data-bs-slide-to="2" class="bg-dark" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#ess-carousel" data-bs-slide-to="3" class="bg-dark" aria-label="Slide 2"></button>
-            </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active car-item">
-                    <img src="assets/carousal_epoch_25.png" class="d-block mx-auto w-100 car-image" alt="...">
-                    <div class="carousel-caption d-none d-lg-block" style="background-color: rgba(000, 000, 000, 0);">
-                        <p style="font-family: 'Times New Roman', Times, serif; font-size: 1.5vw;"></p>
-                    </div>
-                </div>
-                <div class="carousel-item car-item">
-                    <img src="assets/carousal_farewell_25.png" class="d-block mx-auto w-100 car-image" alt="...">
-                    <div class="carousel-caption d-none d-lg-block" style="background-color: rgba(000, 000, 000, 0);">
-                        <p style="font-family: 'Times New Roman', Times, serif; font-size: 1.5vw;"></p>
-                    </div>
-                </div>
-                <div class="carousel-item car-item">
-                    <img src="assets/carousal_sports_meet.png" class="d-block mx-auto w-100 car-image" alt="...">
-                    <div class="carousel-caption d-none d-lg-block" style="background-color: rgba(000, 000, 000, 0);">
-                        <p style="font-family: 'Times New Roman', Times, serif; font-size: 1.5vw;"></p>
-                    </div>
-                </div>
-                <div class="carousel-item car-item">
-                    <img src="assets/carousal_Heritage_Night.png" class="d-block mx-auto w-100 car-image" alt="...">
-                    <div class="carousel-caption d-none d-lg-block" style="background-color: rgba(000, 000, 000, 0.6);">
-                        <p style="font-family: 'Times New Roman', Times, serif; font-size: 1.5vw;">ESS Heritage Night celebration on 28th January</p>
-                    </div>
-                </div>
-                <!--<div class="carousel-item car-item">
-                    <img src="assets/carousal_teachers_day.png" class="d-block mx-auto w-100 car-image" alt="...">
-                    <div class="carousel-caption d-none d-lg-block" style="background-color: rgba(000, 000, 000, 0.6);">
-                        <p style="font-family: 'Times New Roman', Times, serif; font-size: 1.5vw;">Teacher's Day Celebration on 8th Sep. 2024</p>
-                    </div>
-                </div>-->
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#ess-carousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#ess-carousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-          </div>
+    <div class="row justify-content-center tab" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+            <button class="col tablinks" onclick="openPage(event, 'Home')" id="defaultOpen">Home</button>
+            <button class="col tablinks" onclick="openPage(event, 'Team')">Team</button>
+            <button class="col tablinks" onclick="openPage(event, 'Events')">Events</button>
+            <button class="col tablinks" onclick="openPage(event, 'Gallery')">Gallery</button>
     </div>
 </div>
-
-<!--main content-->
-<!--What's new tab-->
-<div class="row justify-content-center" style="background-image: url(assets/pexels-ethan-sees-2534617.jpg); background-position: center; background-size: cover;">
-    <div class="row justify-content-center">
-        <div class="row" style="background: rgba(000, 000, 000, 0.8);">
-            <h4 class="py-1" style="text-align: center; font-family: Averna-Rails; color: yellow; font-size: 5vh; font-weight: 200;">
-                What's new?
-            </h4>
-            <ul>
-                <li style="color: yellow;">
-                    <a href="subpages/epoch-25.html">
-                        <button class="my-1 announcement-btn" style="text-align: justify;">
-                            Check out the pics from Epoch 2025!
-                        </button>
-                    </a>
-                </li>
-                <!--<li style="color: yellow;">
-                    <a href="pages/gallery.html">
-                        <button class="my-1 announcement-btn" style="text-align: justify;">
-                            Check out the pics from the Teacher's Day 2024 celebration on 8th September!
-                        </button>
-                    </a>
-                </li>-->  
-            </ul>
+<div id="Home" class="tabcontent">
+    <div class="announcement-banner">
+    <!-- The background container that holds the image -->
+    <div class="banner-bg"><img src="../assets/carousal_epoch26.png" alt=""></div>
+    
+    <!-- The text content aligned to the left -->
+        <div class="banner-content">
+            <p>Check the gallery for photos from </p>
+            <h2>EPOCH '26</h2>
         </div>
-            <div class="container-lg main-box mt-1"> <!--Containing the objectives, messages etc.-->
-                <p class="normal-text" style="text-align: center; color: black;">
+    </div>
+    <div class="col px-3 main-box mt-1"> <!--Containing the objectives, messages etc.-->
+                <p class="normal-text" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: justify; font-size: large; text-align: center;">
                         <b>Welcome to the virtual home of the Earth Science Society @ IIT Kanpur!</b>
                 </p>
-                <p class="normal-text">
+                <p class="normal-text" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: large; text-align: justify;">
                     The Earth Science Society at IIT Kanpur was established in 2018 with a vision to unite the department of Earth Sciences at IIT Kanpur through various cultural, academic, and sports events.
                 </p>
-                <p class="normal-text">
+                <p class="normal-text" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: large; text-align: justify;">
                     We intend to do this by-
-                    <ul class="normal-text">
+                    <ul class="normal-text" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: large; text-align: justify;">
                         <li>
                             conducting events to bring faculties, staff, and students on the same platform for bonding.
                         </li>
@@ -252,138 +652,1055 @@
                     </div>
                 </div>
             </div>
-        
-    </div>
-
-    <!--Bottom Row-->
-    <div class="row">
-        <div class="col-12 col-md-6 col-lg-4 my-1 justify-content-center"> <!--Containing the events calender, update the events calender on google calender (ESS Events) and the events will appear automatically on this page -->
-            <h4 style="text-align: center; background-color: black; color: white; font-family: fantasy;">
-                Events Calendar
-            </h4>
-            <iframe style="height: 420px; width: 100%;" src="https://calendar.google.com/calendar/embed?src=fca4f9dedc1afb14bafc45685756278bb2472daefbe5a59d37837ab7c6867933%40group.calendar.google.com&ctz=UTC" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
-        </div>
-        <div class="col-12 col-md-6 col-lg-8 my-1 justify-content-center"> <!--containing the Updates tab-->
-            <h4 style="text-align: center; background-color: black; color: white; font-family: fantasy;">
-                Updates
-            </h4>
-            <div class="scrolling-wrapper">
-                <!--Images preferrably of (width:height) 4:5 (portrait)-->
-                <!--Just copy-paste individual post cards and edit the details to add new updates-->
-                <div class="post-card"> <!--One meme, ideally to be updated every week-->
-                    <img class="meme-image" src="assets/geology_meme-3.png" style="height: 400px; width: auto;" alt="">
-                </div>
-                <div class="post-card">
-                    <a href="https://www.instagram.com/share/p/BAN_9ZwoFd" target="_blank">
-                        <img class="update-image" src="assets/media posts/insta 12.png" style="height: 400px; width: auto;" alt="">
-                        <div class="middle">
-                            <div class="update-text">Check out!</div>
+            <div class="row">
+                <div class="col-12 mt-2 justify-content-center"> <!--containing the Updates tab-->
+                    <h4 style="text-align: center; background-color: black; color: white; font-family: fantasy;">
+                        Updates
+                    </h4>
+                    <div class="scrolling-wrapper">
+                        <!--Images preferrably of (width:height) 4:5 (portrait)-->
+                        <!--Just copy-paste individual post cards and edit the details to add new updates-->
+                        <div class="post-card"> <!--One meme, ideally to be updated every week-->
+                            <img class="meme-image" src="../assets/motw.jpg" style="height: 400px; width: auto;" alt="">
                         </div>
-                    </a>
-                </div>
-                <div class="post-card">
-                    <a href="https://www.instagram.com/share/p/BAM1I_ppzG" target="_blank">
-                        <img class="update-image" src="assets/media posts/insta 11.png" style="height: 400px; width: auto;" alt="">
-                        <div class="middle">
-                            <div class="update-text">Check out!</div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/share/p/BAN_9ZwoFd" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 12.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <div class="post-card">
-                    <a href="https://www.instagram.com/p/DFQRFpittPd/?igsh=MW00NXpmNnlhM3I0cg==" target="_blank">
-                        <img class="update-image" src="assets/media posts/insta 10.png" style="height: 400px; width: auto;" alt="">
-                        <div class="middle">
-                            <div class="update-text">Check out!</div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/share/p/BAM1I_ppzG" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 11.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <div class="post-card">
-                    <a href="https://www.instagram.com/p/DFNmkRSNCK4/?igsh=ZnYzYWViYWNjNGd5" target="_blank">
-                        <img class="update-image" src="assets/media posts/insta 09.png" style="height: 400px; width: auto;" alt="">
-                        <div class="middle">
-                            <div class="update-text">Check out!</div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/p/DFQRFpittPd/?igsh=MW00NXpmNnlhM3I0cg==" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 10.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <div class="post-card">
-                    <a href="https://www.instagram.com/reel/DAY5vHqOg0J/?igsh=MXI4YzJzbTA5NDk0cw==" target="_blank">
-                        <img class="update-image" src="assets/media posts/insta 07.png" style="height: 400px; width: auto;" alt="">
-                        <div class="middle">
-                            <div class="update-text">Check out!</div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/p/DFNmkRSNCK4/?igsh=ZnYzYWViYWNjNGd5" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 09.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <div class="post-card">
-                    <a href="https://www.instagram.com/p/C_szIRFIAVX/?igsh=MWNueDhyejQ2c2szcA==" target="_blank">
-                        <img class="update-image" src="assets/media posts/insta 08.png" style="height: 400px; width: auto;" alt="">
-                        <div class="middle">
-                            <div class="update-text">Check out!</div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/reel/DAY5vHqOg0J/?igsh=MXI4YzJzbTA5NDk0cw==" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 07.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <div class="post-card">
-                    <a href="https://www.instagram.com/p/C5Fhb3Exlyl/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank">
-                        <img class="update-image" src="assets/media posts/insta 01.png" style="height: 400px; width: auto;" alt="">
-                        <div class="middle">
-                            <div class="update-text">Check out!</div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/p/C_szIRFIAVX/?igsh=MWNueDhyejQ2c2szcA==" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 08.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <div class="post-card">
-                    <a href="https://www.instagram.com/p/C0MIdaZIZvy/?igsh=N3RmejU2eDdxMGNh" target="_blank">
-                        <img class="update-image" src="assets/media posts/insta 02.png" style="height: 400px; width: auto;" alt="">
-                        <div class="middle">
-                            <div class="update-text">Check out!</div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/p/C5Fhb3Exlyl/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 01.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <div class="post-card">
-                    <a href="https://www.instagram.com/p/C0MH_TLocYg/?igsh=b2k0d3ppMW5yM2p6" target="_blank">
-                        <img class="update-image" src="assets/media posts/insta 03.png" style="height: 400px; width: auto;" alt="">
-                        <div class="middle">
-                            <div class="update-text">Check out!</div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/p/C0MIdaZIZvy/?igsh=N3RmejU2eDdxMGNh" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 02.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <div class="post-card">
-                    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7086263155923857408/" target="_blank">
-                        <img class="update-image" src="assets/media posts/linkedin 01.png" style="height: 400px; width: auto;" alt="">
-                        <div class="middle">
-                            <div class="update-text">Check out!</div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/p/C0MH_TLocYg/?igsh=b2k0d3ppMW5yM2p6" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 03.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <div class="post-card">
-                    <a href="https://www.instagram.com/p/CnpojQbDt59/?igsh=MXEzdTVma3h0ZmFxNA==" target="_blank">
-                        <img class="update-image" src="assets/media posts/insta 04.png" style="height: 400px; width: auto;" alt="">
-                        <div class="middle">
-                            <div class="update-text">Check out!</div>
+                        <div class="post-card">
+                            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7086263155923857408/" target="_blank">
+                                <img class="update-image" src="../assets/media posts/linkedin 01.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <div class="post-card">
-                    <a class="media-post-hover" href="https://www.instagram.com/p/CnpoDZbD_7U/?igsh=cThqZW94dXhzb2ww" target="_blank">
-                        <img class="update-image" src="assets/media posts/insta 05.png" style="height: 400px; width: auto;" alt="">
-                        <div class="middle">
-                            <div class="update-text">Check out!</div>
+                        <div class="post-card">
+                            <a href="https://www.instagram.com/p/CnpojQbDt59/?igsh=MXEzdTVma3h0ZmFxNA==" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 04.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <div class="post-card">
-                    <a class="media-post-hover" href="https://www.instagram.com/p/CiH9-jNtYFh/?igsh=MWZxeTVrcjUzajY3dw==" target="_blank">
-                        <img class="update-image" src="assets/media posts/insta 06.png" style="height: 400px; width: auto;" alt="">
-                        <div class="middle">
-                            <div class="update-text">Check out!</div>
+                        <div class="post-card">
+                            <a class="media-post-hover" href="https://www.instagram.com/p/CnpoDZbD_7U/?igsh=cThqZW94dXhzb2ww" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 05.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
+                        <div class="post-card">
+                            <a class="media-post-hover" href="https://www.instagram.com/p/CiH9-jNtYFh/?igsh=MWZxeTVrcjUzajY3dw==" target="_blank">
+                                <img class="update-image" src="../assets/media posts/insta 06.png" style="height: 400px; width: auto;" alt="">
+                                <div class="middle">
+                                    <div class="update-text">Check out!</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<div id="Team" class="tabcontent" style="background-color: BDDDFC;">
+    <div class="row justify-content-center">
+        <p style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: justify; font-size: medium;">
+            <b>ESS is a student-led society in the Department of Earth Sciences, IIT Kanpur. The ESS 2026-27 term has 10 core team members. Each term has assigned faculty advisors, who supervise the overall activities. Dr T. H. Syed and Dr A. Banerjee are the faculty advisors for the 2026-27 term.</b>
+        </p>
+    </div>
+    <div class="row justify-content-center section-head" style="">
+        Faculty Advisors
+    </div>
+    <div class="row justify-content-center">
+        <div class="row my-2 justify-content-center">
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img data-src="../assets/team/T-H-Syed (new).png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Dr Tajdarul Hassan Syed
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img data-src="../assets/team/A Banerjee (new).png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Dr Anupam Banerjee
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center section-head">
+        Core Team
+    </div>
+    <div class="row justify-content-center">
+        <div class="row my-2 justify-content-center"> <!--Student core team member details-->
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img data-src="../assets/team/Nikki_Banshal.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Nikki Banshal<br>
+                        <span class="team-des">President</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img data-src="../assets/team/anupam_dey.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Anupam Dey<br>
+                        <span class="team-des">Vice-president</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img data-src="../assets/team/Harun.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Md. Harun Rashid<br>
+                        <span class="team-des">Secretary</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img data-src="../assets/team/Anupriya.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Anupriya Raj<br>
+                        <span class="team-des">Treasurer</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img data-src="../assets/team/Himani.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Himani<br>
+                        <span class="team-des">Cultural Secretary</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img data-src="../assets/team/Shivani_Patel.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Shivani Patel<br>
+                        <span class="team-des">Cultural Secretary</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img data-src="../assets/team/Arpita_Verma.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Arpita Verma<br>
+                        <span class="team-des">Sports Secretary</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img data-src="../assets/team/Sneha.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Sneha<br>
+                        <span class="team-des">Sports Secretary</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img data-src="../assets/team/Kali_Aravind.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Kali Aravind<br>
+                        <span class="team-des">Creative, Media, &<br>
+                        Publicity Secretary</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 my-2 justify-content-center">
+                <div class="image-container">
+                    <img data-src="../assets/team/aaditya_mittal.png">
+                    <div class="overlay-text" style="text-align: center;">
+                        Aaditya Mittal<br>
+                        <span class="team-des">Creative, Media, &<br>
+                        Publicity Secretary</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="accordion accordion-flush" id="accordionFlushExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseThree" style="background-color: #88BDF2;">
+                <h3 style="text-align: center; color: black; font-family: fantasy;">
+                    2025-26
+                </h3>
+            </button>
+        </h2>
+        <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body" style="text-align: center; background-color: rgba(136, 189, 242, 0.8)">
+                <div class="p-3" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    <span style="font-size: 20px; font-weight: bold;">Faculty advisors: Dr. Tajdarul Hassan Syed & Dr. Anupam Banerjee</span><br>
+                    <br>
+                    <span style="font-size: 17px;"><b>President:</b> Satyaki Banerjee<br>
+                    <b>Vice-President:</b> Kirtimaan Pandey<br>
+                    <b>Secretary:</b> Gaurav Kumar Sinha<br>
+                    <b>Treasurer:</b> Soumi Das<br>
+                    <b>Cultural Secretary:</b> Sasmita Maharana<br>
+                    <b>Creative, Media, and Publicity Secretary:</b> Navin Patel<br>
+                    <b>Sports Secretary:</b> Srijan Mukherjee<br>
+                    <b>Photographer:</b> Mridul Anand<br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseThree"  style="background-color: #88BDF2;">
+                <h3 style="text-align: center; color: black; font-family: fantasy;">
+                    2024-25
+                </h3>
+            </button>
+        </h2>
+        <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body" style="text-align: center; background-color: rgba(136, 189, 242, 0.8)">
+                <div class="p-3" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    <span style="font-size: 20px; font-weight: bold;">Faculty advisors: Dr. Tajdarul Hassan Syed & Dr. Anupam Banerjee</span><br>
+                    <br>
+                    <span style="font-size: 17px;"><b>President:</b> Srijan Mukherjee<br>
+                    <b>Vice-President:</b> Capriate Yadav<br>
+                    <b>Secretary:</b> Spoorthi Vikas Jilukara<br>
+                    <b>Treasurer:</b> Pragati Singh<br>
+                    <b>Cultural Secretary:</b> Amlan Chandan Das<br>
+                    <b>Creative, Media, and Publicity Secretary:</b> Saumya Kukreti<br>
+                    <b>Designer Secretary:</b> Soumi Das<br>
+                    <b>Sports Secretary:</b> Myathari Samson<br>
+                    <b>Photographer:</b> Arpit Singh<br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree" style="background-color: #88BDF2;">
+                <h3 style="text-align: center; color: black; font-family: fantasy;">
+                    2023-24
+                </h3>
+            </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body" style="text-align: center; background-color: rgba(136, 189, 242, 0.8)">
+                <div class="p-3" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    <span style="font-size: 20px; font-weight: bold;">Faculty advisor: Dr. Indra Sekhar Sen</span><br>
+                    <br>
+                    <span style="font-size: 17px;"><b>President:</b> Ayush Gupta<br>
+                    <b>Vice-President:</b> Gaurav Jaiswal<br>
+                    <b>Secretary:</b> Harsh Verma & Hitesh Arunagiri<br>
+                    <b>Treasurers:</b> Keerthi Chandra & Subhangi Jarwal<br>
+                    <b>Cultural Secretaries:</b> Swarn Raj Singh & Shreya Shukla<br>
+                    <b>Creative, Media, and Publicity Secretaries:</b> Ayushi Nautiyal & Krish Agarwal<br>
+                    <b>Sports Secretaries:</b> Sarthak Papney & Adarsh Mishra<br>
+                    <b>Photographers:</b> Ramswroop Ishram & Arya Sorate<br>
+                    <b>Website Handler:</b> Swastik Suman Behera<br></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" style="background-color: #88BDF2;">
+                <h3 style="text-align: center; color: black; font-family: fantasy;">
+                    2022-23
+                </h3>
+            </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body" style="text-align: center; background-color: rgba(136, 189, 242, 0.8)">
+                <div class="p-3" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    <span style="font-size: 20px; font-weight: bold;">Faculty advisor: Dr. Deepa Mele Veedu</span><br>
+                    <br>
+                    <span style="font-size: 17px;"><b>President:</b> Rajiv Ranjan<br>
+                    <b>Vice-President:</b> Kavya Agarwal<br>
+                    <b>Secretary:</b> Vinay Joshi<br>
+                    <b>Treasurers:</b> Pragati Kharya & Vatsalya Roy<br>
+                    <b>Cultural Secretaries:</b> Arbaz Pathan & Pranjal Jain<br>
+                    <b>Creative, Media, and Publicity Secretaries:</b> Anubhav Jain & Gourav Jaiswal<br>
+                    <b>Sports Secretaries:</b> Banoth Naveen & Pratik Chougule<br></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo" style="background-color: #88BDF2;">
+                <h3 style="text-align: center; color: black; font-family: fantasy;">
+                    2021-22
+                </h3>
+            </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body" style="text-align: center; background-color: rgba(136, 189, 242, 0.8)">
+                <div class="p-3" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    <!--<span style="font-size: 20px; font-weight: bold;"></span><br>
+                    <br>-->
+                    <span style="font-size: 17px;"><b>President:</b> Ananya P. Mukherjee<br>
+                    <b>Vice-President:</b> Earth Sugandhi<br>
+                    <b>Secretary:</b> Kavya Agarwal<br>
+                    <b>Treasurer:</b> Arun Kumar<br>
+                    <b>Cultural Secretary:</b> Prachi Priya<br>
+                    <b>Creative, Media, and Publicity Secretaries:</b> Lavudya Rajkumar & Anjan Haldar<br>
+                    <b>Sports Secretaries:</b> Aditya Shekhawat & Sachin Kumar<br></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div id="Events" class="tabcontent">
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item my-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button events-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    <div class="row w-100 pe-3 align-items-stretch events-accordion-default">
+                        <div class="col-12 col-sm-5 col-lg-4 col-xl-3 show-on-collapsed">
+                            <img data-src="../assets/posters/Epoch_26.png" alt="" class="img-fluid rounded">
+                        </div>
+                        <div class="col-12 col-sm-7 col-lg-8 col-xl-9 show-on-collapsed d-flex flex-column justify-content-between">
+                            <div class="row justify-content-center w-100 mx-0" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                                EPOCH '26
+                            </div>
+                            <span class="my-3">
+                                <h5 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: bolder;">The wait is finally over. EPOCH '26 is here!</h5><br>
+                                <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: justify; font-size: large;">We are delighted to invite the entire department to an evening dedicated to welcoming the newest members of our family and celebrating the spirit that brings all of us together.<br>
+                                EPOCH '26 is more than just a Freshers' Welcome, it is the beginning of new friendships, new memories, and a new chapter in the Earth Sciences journey. From exciting games and interactive sessions to batch performances, music, laughter, and conversations, we have planned an evening where every batch gets a chance to come together, connect, and celebrate.<br>
+                                <b>And of course, the evening will end with a delicious dinner buffet!</b><br></p>
+                                <p style="font-family: 'Courier New', Courier, monospace; text-align: justify;"><i class="fa-solid fa-alarm-clock"></i> When: 2nd October 2026, 5:30 pm onwards<br>
+                                <i class="fa-solid fa-car"></i> Where: ESB 3 Auditorium, IIT Kanpur<br>
+                                <i class="fa-solid fa-shirt"></i> Dress Code: Western</p>
+                            </span>
+                            <div class="row justify-content-center w-100 mx-0" style="font-family:'Times New Roman', Times, serif; font-size: small;">
+                                Click to expand!
+                            </div>
+                        </div>
+                        <div class="col-2 show-on-expanded">
+                        </div>
+                        <div class="col-8 show-on-expanded">
+                            <div class="row justify-content-center" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                                EPOCH '26
+                            </div>
+                        </div>
+                        <div class="col-2 show-on-expanded d-flex justify-content-end align-items-end text-end" style="font-family: 'Times New Roman', Times, serif; font-size: small;">
+                            Click here to close!
+                        </div>
+                    </div>
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="image-gallery-container">
+                                <div class="images">
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_29.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_32.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_37.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_56.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_78.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_93.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_103.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_138.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_145.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_185.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_201.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_212.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_220.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_224.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_218.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/EPOCH26_228.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item my-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button events-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseOne">
+                    <div class="row w-100 pe-3 align-items-stretch events-accordion-default">
+                        <div class="col-12 d-sm-none col-sm-5 col-lg-4 col-xl-3 show-on-collapsed">
+                            <img data-src="../assets/posters/Footprints_26.jpeg" alt="" class="img-fluid rounded">
+                        </div>
+                        <div class="col-12 col-sm-7 col-lg-8 col-xl-9 show-on-collapsed d-flex flex-column justify-content-between">
+                            <div class="row justify-content-center w-100 mx-0" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                                Footprints
+                            </div>
+                            <span class="my-3">
+                                <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: justify; font-size: large;">We are pleased to invite all 1st and 2nd year UG students to "Footprints", an interactive session focused on internships, research, career opportunities, applications, resumes, and interviews.<br>
+                                The session will feature student speakersm who will share their first-hand experiences, application strategies, resume tips, and interview questions. The session will also provide an overview of pathways available ahead, including branch-change opportunities, research and internship avenues, and other academic options.<br>
+                                This will also incude an interactive Q/A, giving you the opportunity to directly interact with the speakers and clarify your doubts.<br></p>
+                                <p style="font-family: 'Courier New', Courier, monospace; text-align: justify;"><i class="fa-solid fa-alarm-clock"></i> When: 24th September 2026, 6:30 pm onwards<br>
+                                <i class="fa-solid fa-car"></i> Where: ESB 3 Auditorium, IIT Kanpur<br></p>
+                            </span>
+                            <div class="row justify-content-center w-100 mx-0" style="font-family:'Times New Roman', Times, serif; font-size: small;">
+                                Click to expand!
+                            </div>
+                        </div>
+                        <div class="col-12 d-none d-sm-block col-sm-5 col-lg-4 col-xl-3 show-on-collapsed">
+                            <img data-src="../assets/posters/Footprints_26.jpeg" alt="" class="img-fluid rounded">
+                        </div>
+                        <div class="col-2 show-on-expanded">
+                        </div>
+                        <div class="col-8 show-on-expanded">
+                            <div class="row justify-content-center" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                                Footprints
+                            </div>
+                        </div>
+                        <div class="col-2 show-on-expanded d-flex justify-content-end align-items-end text-end" style="font-family: 'Times New Roman', Times, serif; font-size: small;">
+                            Click here to close!
+                        </div>
+                    </div>
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="image-gallery-container">
+                                <div class="images">
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/Footprints_01.JPG" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/Footprints_09.JPG" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/Footprints_10.JPG" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/Footprints_13.JPG" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/Footprints_15.JPG" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/Footprints_27.JPG" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/Footprints_32.JPG" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/Footprints_48.JPG" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item my-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button events-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseOne">
+                    <div class="row w-100 pe-3 align-items-stretch events-accordion-default">
+                        <div class="col-12 col-sm-5 col-lg-4 col-xl-3 show-on-collapsed">
+                            <img data-src="../assets/posters/Teachers_day_26.jpeg" alt="" class="img-fluid rounded">
+                        </div>
+                        <div class="col-12 col-sm-7 col-lg-8 col-xl-9 show-on-collapsed d-flex flex-column justify-content-between">
+                            <div class="row justify-content-center w-100 mx-0" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                                Teachers' Day
+                            </div>
+                            <span class="my-3">
+                                <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: justify; font-size: large;">It gives us great pleasure to invite you to our Teachers' Day Celebration, an evening dedicated to honouring the mentors who shape our academic and intellectual journeys.<br>
+                                The evening promises to be a warm and memorable gathering, featuring heartfelt tributes, engaging performances, and moments of appreciation for our esteemed faculty.<br>
+                                This celebration is our way of expressing gratitude to the professors and teachers who have guided us with patience and wisdom throughout our time in the Earth Sciences department. Your presence would add immense value to this occasion and help make it a fitting tribute to our teachers.<br>
+                                <b>Refreshments will be provided to all the attendees.</b><br></p>
+                                <p style="font-family: 'Courier New', Courier, monospace; text-align: justify;"><i class="fa-solid fa-alarm-clock"></i> When: 7th September 2026, 6:00 pm onwards<br>
+                                <i class="fa-solid fa-car"></i> Where: ESB 3 Auditorium, IIT Kanpur<br></p>
+                            </span>
+                            <div class="row justify-content-center w-100 mx-0" style="font-family:'Times New Roman', Times, serif; font-size: small;">
+                                Click to expand!
+                            </div>
+                        </div>
+                        <div class="col-2 show-on-expanded">
+                        </div>
+                        <div class="col-8 show-on-expanded">
+                            <div class="row justify-content-center" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                                Teachers' Day
+                            </div>
+                        </div>
+                        <div class="col-2 show-on-expanded d-flex justify-content-end align-items-end text-end" style="font-family: 'Times New Roman', Times, serif; font-size: small;">
+                            Click here to close!
+                        </div>
+                    </div>
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="image-gallery-container">
+                                <div class="images">
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_09.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_01.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_03.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_27.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_54.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_55.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_56.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_59.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_67.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_75.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_72.png" alt="">
+                                    </div>
+                                    <div class="image" onclick="showImage(this);">
+                                        <img data-src="../assets/gallery images/TeachersDay26_106.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="Gallery" class="tabcontent">
+    <div class="row my-2">
+        <div class="col my-2">
+            <div class="row justify-content-center w-100 mx-0" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                EPOCH '26
+            </div>
+            <div class="row my-2">
+                <div class="image-gallery-container">
+                    <div class="images1">
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_21.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_28.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_30.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_32.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_34.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_37.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_40.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_41.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_43.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_45.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_49.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_50.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_52.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_53.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_54.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_57.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_60.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_61.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_65.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_68.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_92.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_98.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_140.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_147.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_179.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_215.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_217.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_220.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_224.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/EPOCH26_229.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col my-2">
+            <div class="row justify-content-center w-100 mx-0" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                Footprints
+            </div>
+            <div class="row my-2">
+                <div class="image-gallery-container">
+                    <div class="images1">
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_04.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_06.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_08.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_10.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_11.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_13.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_15.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_18.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_20.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_22.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_24.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_26.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_27.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_29.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_32.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_33.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_38.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_42.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_44.JPG" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/Footprints_48.JPG" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col my-2">
+            <div class="row justify-content-center w-100 mx-0" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.8rem;">
+                Teachers' Day
+            </div>
+            <div class="row my-2">
+                <div class="image-gallery-container">
+                    <div class="images1">
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_01.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_02.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_04.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_08.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_52.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_54.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_55.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_56.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_58.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_61.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_64.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_67.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_69.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_73.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_75.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_77.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_79.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_81.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_83.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_85.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_87.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_89.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_92.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_105.png" alt="">
+                        </div>
+                        <div class="image" onclick="showImage(this);">
+                            <img data-src="../assets/gallery images/TeachersDay26_107.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="image-gallery-container">
+    <div class="lightbox">
+        <div class="image">
+            <img src="../assets/gallery images/compressed_heritage_night_1.JPG" alt="">
+            <div class="next-btn"><i class="fa-solid fa-caret-right"></i></div>
+            <div class="previous-btn"><i class="fa-solid fa-caret-left"></i></div>
+        </div>
+                <div class="options">
+                    <a href="#" class="download-btn" download><i class="fa-solid fa-arrow-down"></i></a>
+                <div class="close-btn"><i class="fa-regular fa-circle-xmark"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--This page generally consists of repeating elements (text, set of images, and a link to the full album)-->
+<!--Ensure at the images are not HD, as the page will be very slow and take a long time to load-->
+
+    
+<script> /*IMPORTANT Section, this script ensures that the pictures show their behaviour when they are clicked*/
+    function openPage(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+    document.getElementById("defaultOpen").click();
+
+    const lightbox = document.querySelector(".image-gallery-container .lightbox");
+const lightboxImage = document.querySelector(".image-gallery-container .lightbox img");
+const lightboxTitle = document.querySelector(".image-gallery-container .lightbox .title");
+const downloadBtn = document.querySelector(".image-gallery-container .download-btn");
+const nextBtn = document.querySelector(".image-gallery-container .next-btn");
+const previousBtn = document.querySelector(".image-gallery-container .previous-btn");
+const closeBtn = document.querySelector(".image-gallery-container .close-btn");
+
+let currentImage = "";
+
+const showImage = (data) => {
+    currentImage = data;
+    lightbox.classList.add("active");
+    let image = data.querySelector("img");
+
+    lightboxImage.src = image.src;
+    downloadBtn.href = image.src;
+};
+
+// Closes lightbox when clicking the X button
+closeBtn.addEventListener("click", () => {
+    lightbox.classList.remove("active");
+});
+
+/* 
+   FIX 1: Close lightbox when clicking anywhere OUTSIDE the active image structure.
+   It checks if the clicked target is the lightbox wrapper itself or navigation controls,
+   but NOT the core image display element.
+*/
+lightbox.addEventListener("click", (e) => {
+    // If the click happened on the image canvas itself, do nothing
+    if (e.target === lightboxImage) return;
+    
+    // If you have titles or specific text blocks inside the lightbox you want to protect from clicks,
+    // you can add them here (e.g., e.target === lightboxTitle).
+    // Otherwise, clicking any backdrop space closes the window.
+    if (e.target !== nextBtn && e.target !== previousBtn && e.target !== downloadBtn) {
+        lightbox.classList.remove("active");
+    }
+});
+
+/* 
+   FIX 2: Infinite loop navigation logic.
+   If no sibling element exists, it grabs the parent and jumps to the extreme end.
+*/
+nextBtn.addEventListener("click", (e) => {
+    e.stopPropagation(); 
+    window.getSelection().removeAllRanges(); // Clears any accidental double-click selections instantly
+    
+    if (currentImage.nextElementSibling) {
+        currentImage = currentImage.nextElementSibling;
+    } else {
+        currentImage = currentImage.parentElement.firstElementChild;
+    }
+    showImage(currentImage);
+});
+
+previousBtn.addEventListener("click", (e) => {
+    e.stopPropagation(); 
+    window.getSelection().removeAllRanges(); // Clears any accidental double-click selections instantly
+    
+    if (currentImage.previousElementSibling) {
+        currentImage = currentImage.previousElementSibling;
+    } else {
+        currentImage = currentImage.parentElement.lastElementChild;
+    }
+    showImage(currentImage);
+});
+
+    function openPage(evt, pageName) {
+        // 1. Hide all tab contents (Your existing code logic)
+        const tabcontent = document.getElementsByClassName("tabcontent");
+        for (let i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+    }
+
+    // 2. Remove "active" class from all buttons (Your existing code logic)
+    const tablinks = document.getElementsByClassName("tablinks");
+        for (let i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // 3. Show the current tab and mark the button active
+    const currentPage = document.getElementById(pageName);
+        currentPage.style.display = "block";
+        if (evt) evt.currentTarget.className += " active";
+
+    // 4. LAZY LOADING LOGIC: Find and load images only once
+    const lazyImages = currentPage.querySelectorAll("img[data-src]");
+    
+    lazyImages.forEach(img => {
+        img.src = img.getAttribute("data-src"); // Swaps the path to the real source
+        img.removeAttribute("data-src");       // Prevents this logic from running again next click
+    });
+}
+</script>
+
 <!--footer-->
-<!--add links to the department and iitk website, links to ESS' social media handles, as well as links to the website handler's social media-->
 <div class="row justify-content-center pt-2" style="background-color: black; margin: auto;">
     <p class="text-center" style="font-family: 'Times New Roman', Times, serif; color: white;">
         &nbsp;<a href="https://www.iitk.ac.in/es/" target="_blank" style="color: white; text-decoration:solid;"><b>Earth Sciences</a></b>&nbsp;

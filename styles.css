@@ -41,13 +41,12 @@
  }
 
  .quote-box{
-    border-right:double #0ef21a 10px;
     background-color: rgba(248, 249, 250, 0.8);
  }
 
  .quote-text{
     font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 22px;
+    font-size: large;
     font-style: italic;
     text-align: justify;
     color: black;
